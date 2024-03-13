@@ -1,2 +1,2 @@
-# t-h-ilykisa
+# tohoilykisa
 Tsohaprojekti
