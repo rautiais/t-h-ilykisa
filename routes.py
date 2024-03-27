@@ -1,52 +1,30 @@
 from app import app
-from flask import redirect, render_template, request, session
-
+from flask import redirect, render_template, request
+import users
 
 @app.route("/")
 def index():
     return render_template("index.html")
-    #result = db.session.execute(text("SELECT content FROM messages"))
-    #messages = result.fetchall()
-    #return render_template("index.html",count=len(messages),messages=messages)
 
-@app.route("/login", methods=["POST"])
+@app.route("/login", methods=["GET", "POST"])
 def login():
-    username = request.form["username"]
-    password = request.form["password"]
-    # TODO: check username and password
-    session["username"] = username
-    return redirect("/")
+    if request.method == "GET":
+        return render_template("login.html")
+    if request.method == "POST":
+        username = request.form["username"]
+        password = request.form["password"]
+        if users.login(username, password):
+            return redirect("/")
+        else:
+            return render_template("error.html", message="Wrong username or password")
 
 @app.route("/logout")
 def logout():
-    del session["username"]
+    users.logout()
     return redirect("/")
 
 @app.route("/new")
 def new():
     return render_template("new.html")
 
-# @app.route("/send", methods=["POST"])
-# def send():
-#     content = request.form["content"]
-#     sql = text("INSERT INTO messages (content) VALUES (:content)")
-#     db.session.execute(sql, {"content":content})
-#     db.session.commit()
-#     return redirect("/")
-
-# @app.route("/page1")
-# def page1():
-#     return "page1"
-
-# @app.route("/page2")
-# def page2():
-#     return "page2"
-
-# @app.route("/form")
-# def form():
-#     return render_template("form.html")
-
-# @app.route("/result", methods=["POST"])
-# def result():
-#     return render_template("result.html", name=request.form["name"])
 
