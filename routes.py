@@ -23,6 +23,22 @@ def logout():
     users.logout()
     return redirect("/")
 
+@app.route("/register", methods=["Get", "POST"])
+def register():
+    if request.method == "GET":
+        return render_template("register.html")
+    if request.method == "POST":
+        username = request.form["username"]
+        password1 = request.form["password1"]        
+        password2 = request.form["password2"]
+        if password1 != password2:
+            return render_template("error.html", messages ="The passwords don't match")
+        if users.register(username, password1):
+            return redirect("/")
+        else:
+            return render_template("error.html", message="The registration didn't work out")        
+
+
 @app.route("/new")
 def new():
     return render_template("new.html")
