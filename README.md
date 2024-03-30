@@ -15,7 +15,6 @@ Application features:
 - Within different competition groups, there will be charts to track who has been the most clumsy, divided by categories based on the type of clumsiness.
 - The user can view their own competition group's charts.
 
-
 ## Startup instructions
 
 This application cannot be tested on Fly.io. Here are the instructions how to start the application.
