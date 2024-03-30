@@ -1,4 +1,12 @@
-{% if session.username %}
+{% if session.user_id %}
+Olet kirjautunut sisään.
+<a href="/logout">Kirjaudu ulos</a>
+{% else %}
+<a href="/login">Kirjaudu sisään</a>
+{% endif %}
+
+
+<!-- {% if session.username %}
 <p>You are logged in {{ session.username }}</p>
 <a href="/logout">Log out</a>
 {% else %}
@@ -10,4 +18,4 @@
 <input type="submit" value="Log in">
 </form>
 {% endif %}
-
+ -->
