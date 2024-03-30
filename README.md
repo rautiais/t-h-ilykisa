@@ -14,3 +14,28 @@ Application features:
 - Events are categorized based on the type of clumsiness.
 - Within different competition groups, there will be charts to track who has been the most clumsy, divided by categories based on the type of clumsiness.
 - The user can view their own competition group's charts.
+
+
+## Startup instructions
+
+This application cannot be tested on Fly.io. Here are the instructions how to start the application.
+
+Clone this repository to your computer and navigate to its root directory. Create a .env file in the directory and set its contents as follows:
+```
+DATABASE_URL=<database-local-address>
+SECRET_KEY=<secret-key>
+```
+Activate the virtual environment and install the application dependencies with the commands:
+```
+$ python3 -m venv venv
+$ source venv/bin/activate
+$ pip install -r ./requirements.txt
+```
+Define the database schema with the command:
+```
+$ psql < schema.sql
+```
+You can start the application with the command:
+```
+$ flask run
+``` 
