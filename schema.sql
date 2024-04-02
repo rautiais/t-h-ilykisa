@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS Users;
 
-CREATE TABLE Users(
-id SERIAL PRIMARY KEY, 
-username TEXT UNIQUE,
-password TEXT
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY, 
+    username TEXT UNIQUE,
+    password TEXT
 );
