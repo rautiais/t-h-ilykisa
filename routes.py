@@ -43,4 +43,8 @@ def register():
 def new():
     return render_template("new.html")
 
+@app.route("/event_cat")
+def event_cat():
+    return render_template("event_cat.html")
+
 
