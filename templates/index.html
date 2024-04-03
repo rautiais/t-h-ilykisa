@@ -1,21 +1,10 @@
+<title>The Clumsiness Competition</title>
+<h2>The Clumsiness Competition</h2>
+<b>Welcome</b> <i>Join the competition</i>!
+
 {% if session.user_id %}
-Olet kirjautunut sisään.
-<a href="/logout">Kirjaudu ulos</a>
-{% else %}
-<a href="/login">Kirjaudu sisään</a>
-{% endif %}
-
-
-<!-- {% if session.username %}
 <p>You are logged in {{ session.username }}</p>
 <a href="/logout">Log out</a>
 {% else %}
-<form action="/login" method="POST">
-<p>Username:<br>
-<input type="text" name="username"></p>
-<p>Password:<br>
-<input type="password" name="password"></p>
-<input type="submit" value="Log in">
-</form>
+<a href="/login">Log in</a>
 {% endif %}
- -->
