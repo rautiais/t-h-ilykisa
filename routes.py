@@ -43,8 +43,25 @@ def register():
 def new():
     return render_template("new.html")
 
-@app.route("/event_cat")
+@app.route("/new_group", methods=["POST"])
+def new_group():
+    group_name = request.form["new_group"]
+
+@app.route("/join_group", methods=["POST"])
+def join_group():
+    group_name = request.form["group_name"]
+    return group_name
+
+
+@app.route("/event_cat", methods=["GET"])
 def event_cat():
     return render_template("event_cat.html")
 
+
+    # event_cat_name = request.form["event_cat_name"]
+    # all_events = event_cat.fetchall())
+    # if event_cat_name not in all_events:
+    #     return render_template("event_cat.html")
+    # else:
+    #     return render_template("error.html", message="This event category is not unique")        
 

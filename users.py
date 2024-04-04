@@ -31,12 +31,3 @@ def register(username, password):
 
 def user_id():
     return session.get("user_id", 0)
-
-def event_cat(event_cat_name):
-    try:
-        sql = text("INSERT INTO event_cat (event_cat_name) VALUES (:event_cat_name)")
-        db.session.execute(sql, {"event_cat_name":event_cat_name})
-        db.session.commit()
-    except:
-        return False
-    return event_cat_name.fetchall()
