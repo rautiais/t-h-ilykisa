@@ -1,6 +1,8 @@
 from app import app
 from flask import redirect, render_template, request
 import users
+import groups_main
+#import events_main
 
 @app.route("/")
 def index():
@@ -38,7 +40,6 @@ def register():
         else:
             return render_template("error.html", message="Registration failed")        
 
-
 @app.route("/new")
 def new():
     return render_template("new.html")
@@ -46,12 +47,17 @@ def new():
 @app.route("/new_group", methods=["POST"])
 def new_group():
     group_name = request.form["new_group"]
+    return render_template("groups.html")
 
 @app.route("/join_group", methods=["POST"])
 def join_group():
     group_name = request.form["group_name"]
     return group_name
 
+@app.route("/groups")
+def groups():
+   # all_groups = groups_main.list_groups()
+    return render_template("groups.html")    #,all_groups=all_groups)
 
 @app.route("/event_cat", methods=["GET"])
 def event_cat():
