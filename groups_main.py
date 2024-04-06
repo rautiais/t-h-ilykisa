@@ -23,3 +23,8 @@ def join_group(group_id):
     except:
         return False
 
+def all_groups():
+    sql = text("SELECT * FROM groups VALUES (:group_name)")
+    result = db.session.execute(sql, {"user_id":session["id"]})
+    return result.fetchall()
+

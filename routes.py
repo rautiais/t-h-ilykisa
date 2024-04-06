@@ -40,9 +40,9 @@ def register():
         else:
             return render_template("error.html", message="Registration failed")        
 
-@app.route("/new")
-def new():
-    return render_template("new.html")
+@app.route("/info", methods=["GET"])
+def info():
+    return render_template("info.html")
 
 @app.route("/new_group", methods=["POST"])
 def new_group():
