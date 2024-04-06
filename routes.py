@@ -40,7 +40,7 @@ def register():
         else:
             return render_template("error.html", message="Registration failed")        
 
-@app.route("/info", methods=["GET"])
+@app.route("/info")
 def info():
     return render_template("info.html")
 
@@ -56,7 +56,8 @@ def join_group():
 
 @app.route("/groups")
 def groups():
-    return render_template("groups.html")  
+    my_groups = groups_main.all_groups()
+    return render_template("groups.html", my_groups=my_groups)  
 
 @app.route("/event_cat", methods=["GET"])
 def event_cat():
