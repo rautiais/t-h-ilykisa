@@ -47,17 +47,31 @@ def info():
 @app.route("/new_group", methods=["POST"])
 def new_group():
     group_name = request.form["new_group"]
-    return render_template("groups.html")
+    if groups_main.check_group(group_name):
+        return redirect("/groups")
+    else:
+        if groups_main.new_group(group_name):
+            return redirect("/groups")
+        else:
+            redirect("/groups")
 
 @app.route("/join_group", methods=["POST"])
 def join_group():
     group_name = request.form["group_name"]
-    return group_name
-
+    group_id = groups_main.check_group(group_name)
+    if group_id:
+        if groups_main.join_group(group_id):
+            return redirect("/groups", messages="You joined a group")
+        else:
+            return redirect("/groups", messages="You are already in the group")
+    else:
+        return redirect("/groups", messages="This group does not exist")
+        
 @app.route("/groups")
 def groups():
-    my_groups = groups_main.all_groups()
-    return render_template("groups.html", my_groups=my_groups)  
+    return render_template("groups.html")
+   # my_groups = groups_main.all_groups()
+   # return render_template("groups.html", my_groups=my_groups)  
 
 @app.route("/event_cat", methods=["GET"])
 def event_cat():

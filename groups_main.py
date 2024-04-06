@@ -16,8 +16,8 @@ def new_group(group_name):
 
 def join_group(group_id):
     try:
-        sql = text("INSERT INTO user_info (user_id, group_id) VALUES (:user_id, :group_id)")
-        db.session.execute(sql, {"user_id":session["id"], "group_id":group_id})
+        sql = text("INSERT INTO user_info (group_id, user_id) VALUES (:group_id, :user_id)")
+        db.session.execute(sql, {"group_id":group_id, "user_id":session["id"]})
         db.session.commit()
         return True
     except:
@@ -29,9 +29,11 @@ def check_group(group_name):
     group_id = result.fetchone()
 
 def all_groups():
-    sql = text("""SELECT u.group_id, u.group_name 
-               FROM user_info u LEFT JOIN groups g
-               ON u.group_id = g.id""")
+    sql = text("""SELECT u.group_id, g.group_name 
+               FROM user_info u INNER JOIN groups g
+               ON u.group_id = g.id 
+               WHERE u.user_id=:user_id""")
     result = db.session.execute(sql, {"user_id":session["id"]})
     return result.fetchall()
+
 
