@@ -56,18 +56,8 @@ def join_group():
 
 @app.route("/groups")
 def groups():
-   # all_groups = groups_main.list_groups()
-    return render_template("groups.html")    #,all_groups=all_groups)
+    return render_template("groups.html")  
 
 @app.route("/event_cat", methods=["GET"])
 def event_cat():
     return render_template("event_cat.html")
-
-
-    # event_cat_name = request.form["event_cat_name"]
-    # all_events = event_cat.fetchall())
-    # if event_cat_name not in all_events:
-    #     return render_template("event_cat.html")
-    # else:
-    #     return render_template("error.html", message="This event category is not unique")        
-
