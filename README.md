@@ -6,6 +6,8 @@ The idea behind this application is to determine who is the most clumsy person i
 
 In the end, the most important criterion for defining clumsiness is that it is caused by oneself accidentally. It is not about incidents that occur while attempting something potentially harmful but about everyday incidents.
 
+At the moment, working features include registering, logging in and logging out. You can create a new group and join an existing group but both of the features are still a working process. You can also create a new event category but the other features are still lacking. 
+
 Application features:
 - The user can create an account and log in and log out.
 - The user can join a competition group.
