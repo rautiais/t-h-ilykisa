@@ -1,5 +1,5 @@
 from app import app
-from flask import redirect, render_template, request
+from flask import redirect, render_template, request, flash
 import users
 import groups_main
 #import events_main
@@ -48,28 +48,40 @@ def info():
 def new_group():
     group_name = request.form["new_group"]
     if groups_main.check_group(group_name):
+        flash("Group name is not unique")
         return redirect("/groups")
     else:
         if groups_main.new_group(group_name):
+            flash("Creating a group was successful")
             return redirect("/groups")
         else:
-            redirect("/groups")
+            flash("Error")
+            return redirect("/groups")
 
 @app.route("/join_group", methods=["POST"])
 def join_group():
-    group_name = request.form["group_name"]
+    if "join_group" not in request.form:
+        flash("Please provide a group name to join.")
+        return redirect("/groups")
+    
+    group_name = request.form["join_group"]
     group_id = groups_main.check_group(group_name)
     if group_id:
         if groups_main.join_group(group_id):
-            return redirect("/groups", messages="You joined a group")
+            flash("You joined the group")
+            return redirect("/groups")
         else:
-            return redirect("/groups", messages="You are already in the group")
+            flash("You are already in the group")
+            return redirect("/groups")
     else:
-        return redirect("/groups", messages="This group does not exist")
+        flash("This group does not exist")
+        return redirect("/groups")
         
 @app.route("/groups")
 def groups():
     return render_template("groups.html")
+
+
    # my_groups = groups_main.all_groups()
    # return render_template("groups.html", my_groups=my_groups)  
 

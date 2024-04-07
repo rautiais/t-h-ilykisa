@@ -5,30 +5,30 @@ DROP TABLE IF EXISTS groups CASCADE;
 DROP TABLE IF EXISTS user_info CASCADE;
 
 
-CREATE TABLE users (
+CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY, 
     username TEXT UNIQUE CHECK(username IS NOT NULL AND length(username) > 2),
     password TEXT CHECK (password IS NOT NULL AND length(password) > 7)
 );
 
-CREATE TABLE events (
+CREATE TABLE IF NOT EXISTS events (
     id SERIAL PRIMARY KEY,
     event_name TEXT UNIQUE CHECK(event_name IS NOT NULL AND length(event_name) > 2)
 );
 
-CREATE TABLE event_cat (
+CREATE TABLE IF NOT EXISTS event_cat (
     id SERIAL PRIMARY KEY,
     event_cat_name TEXT UNIQUE CHECK(event_cat_name IS NOT NULL AND length(event_cat_name) > 2),
     events_id INTEGER REFERENCES events
 );
 
-CREATE TABLE groups (
+CREATE TABLE IF NOT EXISTS groups (
     id SERIAL PRIMARY KEY,
     group_name TEXT UNIQUE CHECK(group_name IS NOT NULL AND length(group_name) > 2),
     user_id INTEGER REFERENCES users
 );
 
-CREATE TABLE user_info (
+CREATE TABLE IF NOT EXISTS user_info (
     id SERIAL PRIMARY KEY,
     user_id INTEGER REFERENCES users,
     group_id INTEGER REFERENCES groups,
