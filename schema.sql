@@ -30,6 +30,7 @@ CREATE TABLE IF NOT EXISTS groups (
 
 CREATE TABLE IF NOT EXISTS user_info (
     id SERIAL PRIMARY KEY,
+    username INTEGER REFERENCES users,
     user_id INTEGER REFERENCES users,
     group_id INTEGER REFERENCES groups,
     UNIQUE (user_id, group_id)

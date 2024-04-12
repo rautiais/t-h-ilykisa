@@ -12,10 +12,10 @@ def new_group(group_name):
     try:
         sql = text("""INSERT INTO groups (user_id, group_name) 
                    VALUES (:user_id, :group_name) RETURNING id""")
-        result = db.session.execute(sql, {"user_id": session["id"], "group_name": group_name})
+        result = db.session.execute(sql, {"user_id":session["id"], "group_name":group_name})
         group_id = result.fetchone()[0]
         sql = text("INSERT INTO user_info (user_id, group_id) VALUES (:user_id, :group_id)")
-        db.session.execute(sql, {"user_id": session["id"], "group_id": group_id})
+        db.session.execute(sql, {"user_id":session["id"], "group_id":group_id})
         db.session.commit()
         return True
     except:
@@ -24,7 +24,7 @@ def new_group(group_name):
 def join_group(group_id):
     try:
         sql = text("INSERT INTO user_info (group_id, user_id) VALUES (:group_id, :user_id)")
-        db.session.execute(sql, {"group_id": group_id, "user_id": session["id"]})
+        db.session.execute(sql, {"group_id":group_id, "user_id":session["id"]})
         db.session.commit()
         return True
     except:
@@ -43,6 +43,13 @@ def list_users(group_id):
                FROM groups g INNER JOIN user_info u
                ON g.user_id = u.user_id
                WHERE u.group_id=:group_id""")
-    result = db.session.execute(sql, {"group_id": group_id})
+    result = db.session.execute(sql, {"group_id":group_id})
     return result.fetchall()
 
+def check_access(group_id):
+    sql = text("""SELECT id FROM user_info
+                WHERE group_id=:group_id AND user_id:=user_id""")
+    result = db.session.execute(sql, {"group_id":group_id}, {"user_id":session["id"]})
+    if result.fetchone():
+        return True
+    return False
