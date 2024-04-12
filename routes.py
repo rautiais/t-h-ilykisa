@@ -92,7 +92,7 @@ def one_group(group_id):
     if not access:
         flash("You don't have access to this group")
         return redirect("/groups")
-    return render_template("one_group.html", group_users=group_users, group_id = group_id)
+    return render_template("one_group.html", group_users=group_users, group_id=group_id)
 
 @app.route("/event_cat", methods=["GET"])
 def event_cat():

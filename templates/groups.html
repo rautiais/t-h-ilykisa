@@ -2,7 +2,7 @@
 <h2>Groups</h2>
 
 <form action="/new_group" method="POST">
-    <p>Create a new group:<input type="text" name="new_group">
+    <p>Create a new group:<input type="text" name="new_group" minlength="3" maxlength="25">
     <input type="submit" value="Create group"></p>
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
     </form>
