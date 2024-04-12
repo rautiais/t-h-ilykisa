@@ -85,6 +85,15 @@ def groups():
    # my_groups = groups_main.all_groups()
    # return render_template("groups.html", my_groups=my_groups)  
 
+@app.route("/one_group/<int:group_id>")
+def one_group(group_id):
+    access = groups_main.check_access(group_id)
+    group_users = groups_main.list_users(group_id)
+    if not access:
+        flash("You don't have access to this group")
+        return redirect("/groups")
+    return render_template("one_group.html", group_users=group_users, group_id = group_id)
+
 @app.route("/event_cat", methods=["GET"])
 def event_cat():
     return render_template("event_cat.html")
