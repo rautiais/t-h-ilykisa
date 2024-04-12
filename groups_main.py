@@ -38,4 +38,11 @@ def all_groups():
     result = db.session.execute(sql, {"user_id":session["id"]})
     return result.fetchall()
 
+def list_users(group_id):
+    sql = text("""SELECT u.id, u.username, g.group_name
+               FROM groups g INNER JOIN user_info u
+               ON g.user_id = u.user_id
+               WHERE u.group_id=:group_id""")
+    result = db.session.execute(sql, {"group_id": group_id})
+    return result.fetchall()
 
