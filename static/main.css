@@ -1,0 +1,18 @@
+body {
+    margin: auto;
+    max-width: 45em;
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    background: rgb(201, 231, 235);
+  }
+  
+h1 {
+    color: blue;
+  }
+
+h2 {
+    color: red;
+}
+
+p {
+    color: black;
+  }
