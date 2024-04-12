@@ -1,5 +1,5 @@
 from app import app
-from flask import redirect, render_template, request, flash
+from flask import redirect, render_template, request, flash, session
 import users
 import groups_main
 #import events_main
@@ -46,6 +46,7 @@ def info():
 
 @app.route("/new_group", methods=["POST"])
 def new_group():
+    users.check_token(request.form["csrf_token"])
     group_name = request.form["new_group"]
     if groups_main.check_group(group_name):
         flash("Group name is not unique")
@@ -60,6 +61,7 @@ def new_group():
 
 @app.route("/join_group", methods=["POST"])
 def join_group():
+    users.check_token(request.form["csrf_token"])
     if "join_group" not in request.form:
         flash("Please provide a group name to join.")
         return redirect("/groups")
@@ -80,8 +82,6 @@ def join_group():
 @app.route("/groups")
 def groups():
     return render_template("groups.html")
-
-
    # my_groups = groups_main.all_groups()
    # return render_template("groups.html", my_groups=my_groups)  
 

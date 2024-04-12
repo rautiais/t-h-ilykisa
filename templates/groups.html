@@ -4,11 +4,13 @@
 <form action="/new_group" method="POST">
     <p>Create a new group:<input type="text" name="new_group">
     <input type="submit" value="Create group"></p>
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
     </form>
 
 <form action="/join_group" method="POST">
     <p>Join a group:<input type="text" name="join_group">
     <input type="submit" value="Join group"></p>
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 </form>
 <h3>My groups</h3>
 {% for one_group in my_groups %}

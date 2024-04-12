@@ -24,14 +24,14 @@ CREATE TABLE IF NOT EXISTS event_cat (
 
 CREATE TABLE IF NOT EXISTS groups (
     id SERIAL PRIMARY KEY,
-    group_name TEXT UNIQUE CHECK(group_name IS NOT NULL AND length(group_name) > 2),
-    user_id INTEGER REFERENCES users
+    member_id INTEGER REFERENCES users,
+    group_name TEXT UNIQUE CHECK(group_name IS NOT NULL AND length(group_name) > 2)
 );
 
 CREATE TABLE IF NOT EXISTS user_info (
     id SERIAL PRIMARY KEY,
     username INTEGER REFERENCES users,
-    user_id INTEGER REFERENCES users,
     group_id INTEGER REFERENCES groups,
+    user_id INTEGER REFERENCES users,
     UNIQUE (user_id, group_id)
 );
