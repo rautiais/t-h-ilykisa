@@ -1,20 +1,31 @@
-<title>Groups</title>
-<h2>Groups</h2>
+<!doctype html>
+<html>
+<head> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Groups</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='/main.css') }}">
+</head>
+<body>
+    <h2>Groups</h2>
 
-<form action="/new_group" method="POST">
-    <p>Create a new group:<input type="text" name="new_group" minlength="3" maxlength="25">
-    <input type="submit" value="Create group"></p>
-    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+    <form action="/new_group" method="POST">
+        <p>Create a new group:<input type="text" name="new_group" minlength="3" maxlength="25">
+        <input type="submit" value="Create group"></p>
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
     </form>
 
-<form action="/join_group" method="POST">
-    <p>Join a group:<input type="text" name="join_group">
-    <input type="submit" value="Join group"></p>
-    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-</form>
-<h3>My groups</h3>
-{% for one_group in my_groups %}
-<a href="/one_group/{{one_group.group_id}}">{{one_group.group_name}}</a>
-{% endfor %}
-<br>
-<a href="/">Back to homepage</a>
+    <form action="/join_group" method="POST">
+        <p>Join a group:<input type="text" name="join_group">
+        <input type="submit" value="Join group"></p>
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+    </form>
+
+    <h3>My groups</h3>
+    {% for one_group in my_groups %}
+    <a href="/one_group/{{one_group.group_id}}">{{one_group.group_name}}</a>
+    {% endfor %}
+    <br>
+    <a href="/">Back to homepage</a>
+    
+</body>
+</html>

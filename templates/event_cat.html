@@ -1,4 +1,11 @@
-<title>Event categories</title>
+<!doctype html>
+<html>
+<head> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Event categories</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='/main.css') }}">
+</head>
+<body>
 <h2>Event categories</h2>
 
 <form action="/event_cat" method="get">
@@ -8,3 +15,5 @@
     </form>
 
 <a href="/">Back to homepage</a>
+</body>
+</html>

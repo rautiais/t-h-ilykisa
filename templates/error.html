@@ -1,4 +1,16 @@
-Error: {{ message }}
-<br>
-<br>
-<a href="javascript:history. back()">Back</a>
+<!doctype html>
+<html>
+<head> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Error</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='/main.css') }}">
+</head>
+<body>
+    <br>
+    <br>
+    Error: {{ message }}
+    <br>
+    <br>
+    <a href="javascript:history. back()">Back</a>
+</body>
+</html>

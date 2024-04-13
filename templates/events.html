@@ -1,8 +1,19 @@
-<title>Events</title>
-<h2>Events</h2>
+<!doctype html>
+<html>
+<head> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Events</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='/main.css') }}">
+</head>
+<body>
 
-<form action="/event" method="get">
+    <h2>Events</h2>
+
+    <form action="/event" method="get">
     Event name: <input type="text" name="event">
     <p>
     <input type="submit" value="Make">
     </form>
+    
+</body>
+</html>
