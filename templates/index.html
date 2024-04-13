@@ -6,9 +6,8 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='/main.css') }}">
 </head>
 <body>
-    <h2>The Clumsiness Competition</h2>
+    <h1>The Clumsiness Competition</h1>
     <b>Welcome</b> <i>Join the competition</i>!
-
     {% if session.user_id %}
     <p>You are logged in {{ session.username }}</p>
     <a href="/info">About page</a>

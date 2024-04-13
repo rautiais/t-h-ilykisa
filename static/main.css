@@ -1,18 +1,50 @@
 body {
+    border: 2px black;
     margin: auto;
+    padding: 25px 50px;
     max-width: 45em;
     font-family: 'Helvetica', 'Arial', sans-serif;
     background: rgb(201, 231, 235);
+    color: rgb(36, 33, 33);
   }
   
 h1 {
-    color: blue;
+    color: rgb(9, 2, 84);
+    text-shadow: 2px 2px 5px rgb(227, 229, 255);
+    letter-spacing: 2px;
+    word-spacing: 5px;
+    text-decoration-line: underline;
+    text-decoration-color:  rgb(9, 2, 84);
+    text-decoration-thickness: auto;
+    text-decoration-style: double;
+    text-decoration-thickness: 1.5px;
   }
 
 h2 {
-    color: red;
+    color: rgb(9, 2, 84);
+}
+
+h3 {
+  color:  rgb(21, 12, 112);
 }
 
 p {
-    color: black;
+    color: rgb(36, 33, 33);
   }
+
+/* a {       linkit */
+  text-decoration: none;
+}
+
+.header {
+  background-color: #F1F1F1;
+  text-align: center;
+  padding: 20px;
+}
+
+div {
+  width: 300px;
+  margin: auto;
+  border: 1px solid red;
+  padding: 25px 50px 75px 100px;
+}
