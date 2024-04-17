@@ -1,24 +1,29 @@
 <!doctype html>
 <html>
-<head> 
+<head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>The Clumsiness Competition</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
 </head>
 <body>
-    <h1>The Clumsiness Competition</h1>
-    <b>Welcome</b> <i>Join the competition</i>!
-    {% if session.user_id %}
-    <p>{{ session.username }}, you are logged in </p>
-    <a href="/info">About page</a>
-    <p></p>
-    <a href="/groups">Join a group</a>
-    <p></p>
-    <a href="/event_cat">Create an event</a>
-    <p></p>
-    <a href="/logout">Log out</a>
-    {% else %}
-    <a href="/login">Log in</a>
-    {% endif %}
+    <header>
+        <h1>The Clumsiness Competition</h1>
+        <h2>Feeling clumsy?</h2>
+        <h3>Welcome, you're in the right place.</h3>
+    </header>
+
+    <nav>
+        {% if session.user_id %}
+            <p>{{ session.username | capitalize }}, you are logged in. </p>
+            <ul>
+                <li><a href="/info">About page</a></li>
+                <li><a href="/groups">Join a group</a></li>
+                <li><a href="/event_cat">Create an event</a></li>
+            </ul>
+            <a href="/logout">Log out</a>
+        {% else %}
+            <p><b>Join the competition!</b> <a href="/login">Log in</a></p>
+        {% endif %}
+    </nav>
 </body>
 </html>
