@@ -49,14 +49,17 @@ def new_group():
     users.check_token(request.form["csrf_token"])
     group_name = request.form["new_group"]
     if groups_main.check_group(group_name):
+        print("Group name is not unique")
         flash("Group name is not unique")
         return redirect("/groups")
     else:
         if groups_main.new_group(group_name):
+            print("Creating a group was successful")
             flash("Creating a group was successful")
             return redirect("/groups")
         else:
             flash("Error")
+            print("Error")
             return redirect("/groups")
 
 @app.route("/join_group", methods=["POST"])
