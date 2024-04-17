@@ -41,3 +41,12 @@ def user_id():
 def check_token(csrf_token):
     if session["csrf_token"] != csrf_token:
         abort(403)
+
+def check_username(username):
+    sql = text("""SELECT username FROM users
+               WHERE username=:username""")
+    result = db.session.execute(sql, {"username":username})
+    if result.fetchone():
+        return False
+    else:
+        return True

@@ -2,7 +2,7 @@ from app import app
 from flask import redirect, render_template, request, flash, session
 import users
 import groups_main
-#import events_main
+import events_main
 
 @app.route("/")
 def index():
@@ -29,14 +29,27 @@ def logout():
 def register():
     if request.method == "GET":
         return render_template("register.html")
+    
     if request.method == "POST":
         username = request.form["username"]
         password1 = request.form["password1"]        
         password2 = request.form["password2"]
+
+        if not users.check_username(username):
+            return render_template("error.html", message="The username is already taken")
+
+        if len(username) <= 2:
+            return render_template("error.html", message="The username must be longer than 2 characters")
+        
+        if len(password1) <= 7:
+            return render_template("error.html", message="The password must be longer than 7 characters")     
+        
         if password1 != password2:
-            return render_template("error.html", messages="The passwords don't match")
+            return render_template("error.html", message="Passwords do not match")
+        
         if users.register(username, password1):
             return redirect("/")
+        
         else:
             return render_template("error.html", message="Registration failed")        
 
