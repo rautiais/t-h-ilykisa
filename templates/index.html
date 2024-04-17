@@ -9,7 +9,7 @@
     <h1>The Clumsiness Competition</h1>
     <b>Welcome</b> <i>Join the competition</i>!
     {% if session.user_id %}
-    <p>You are logged in {{ session.username }}</p>
+    <p>{{ session.username }}, you are logged in </p>
     <a href="/info">About page</a>
     <p></p>
     <a href="/groups">Join a group</a>

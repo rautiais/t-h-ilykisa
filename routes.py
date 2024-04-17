@@ -67,6 +67,7 @@ def join_group():
     users.check_token(request.form["csrf_token"])
     if "join_group" not in request.form:
         flash("Please provide a group name to join.")
+        print("Please provide a group name to join.")
         return redirect("/groups")
     
     group_name = request.form["join_group"]
@@ -74,19 +75,21 @@ def join_group():
     if group_id:
         if groups_main.join_group(group_id):
             flash("You joined the group")
+            print("You joined the group")
             return redirect("/groups")
         else:
             flash("You are already in the group")
+            print("You are already in the group")
             return redirect("/groups")
     else:
         flash("This group does not exist")
+        print("This group does not exist")
         return redirect("/groups")
         
 @app.route("/groups")
 def groups():
-    return render_template("groups.html")
-   # my_groups = groups_main.all_groups()
-   # return render_template("groups.html", my_groups=my_groups)  
+    my_groups = groups_main.all_groups()
+    return render_template("groups.html", my_groups=my_groups)  
 
 @app.route("/one_group/<int:group_id>")
 def one_group(group_id):

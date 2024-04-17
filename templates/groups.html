@@ -28,9 +28,11 @@
     <h2>My groups</h2>
     <div>
         {% for one_group in my_groups %}
-        <a href="/one_group/{{one_group.group_id}}">{{one_group.group_name}}</a>
+        <a href="/one_group/{{ one_group.group_id }}">{{one_group.group_name}}</a>
         {% endfor %}
     </div>
+    <br>
+    <br>
     <footer>
         <a href="/">Back to homepage</a>
     </footer>

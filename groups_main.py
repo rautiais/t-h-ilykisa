@@ -9,22 +9,22 @@ def check_group(group_name):
     return group_id[0] if group_id else False
 
 def new_group(group_name):
-    #try:
-    sql = text("""INSERT INTO groups (member_id, group_name) 
-               VALUES (:member_id,:new_group) RETURNING id""")
-    result = db.session.execute(sql, {"member_id":session["user_id"], "new_group":group_name})
-    group_id = result.fetchone()[0]
-    sql = text("INSERT INTO user_info (group_id, user_id) VALUES (:group_id, :user_id)")
-    db.session.execute(sql, {"group_id":group_id, "user_id":session["user_id"]})
-    db.session.commit()
-    return True
-    # except:
-    #     return False
+    try:
+        sql = text("""INSERT INTO groups (member_id, group_name) 
+                   VALUES (:member_id,:new_group) RETURNING id""")
+        result = db.session.execute(sql, {"member_id":session["user_id"], "new_group":group_name})
+        group_id = result.fetchone()[0]
+        sql = text("INSERT INTO user_info (group_id, user_id) VALUES (:group_id, :user_id)")
+        db.session.execute(sql, {"group_id":group_id, "user_id":session["user_id"]})
+        db.session.commit()
+        return True
+    except:
+        return False
 
 def join_group(group_id):
     try:
         sql = text("INSERT INTO user_info (group_id, user_id) VALUES (:group_id, :user_id)")
-        db.session.execute(sql, {"group_id":group_id, "user_id":session["id"]})
+        db.session.execute(sql, {"group_id":group_id, "user_id":session["user_id"]})
         db.session.commit()
         return True
     except:
@@ -35,7 +35,7 @@ def all_groups():
                FROM user_info u INNER JOIN groups g
                ON g.id = u.group_id
                WHERE u.user_id=:user_id""")
-    result = db.session.execute(sql, {"user_id":session["id"]})
+    result = db.session.execute(sql, {"user_id":session["user_id"]})
     return result.fetchall()
 
 def list_users(group_id):
@@ -49,7 +49,7 @@ def list_users(group_id):
 def check_access(group_id):
     sql = text("""SELECT u.id FROM user_info u
                 WHERE u.group_id=:group_id AND u.user_id:=user_id""")
-    result = db.session.execute(sql, {"group_id":group_id}, {"user_id":session["id"]})
+    result = db.session.execute(sql, {"group_id":group_id}, {"user_id":session["user_id"]})
     if result.fetchone():
         return True
     return False
