@@ -1,5 +1,5 @@
 from app import app
-from flask import redirect, render_template, request, flash, session
+from flask import redirect, render_template, request, flash
 import users
 import groups_main
 import events_main
@@ -64,7 +64,8 @@ def new_group():
     if groups_main.check_group(group_name):
         print("Group name is not unique")
         flash("Group name is not unique")
-        return redirect("/groups")
+        return render_template("error.html", message="Group name is not unique")
+        #return redirect("/groups")
     else:
         if groups_main.new_group(group_name):
             print("Creating a group was successful")
@@ -73,7 +74,8 @@ def new_group():
         else:
             flash("Error")
             print("Error")
-            return redirect("/groups")
+            return render_template("error.html", message="Error, creating the group was not successful")
+            #return redirect("/groups")
 
 @app.route("/join_group", methods=["POST"])
 def join_group():
@@ -81,7 +83,8 @@ def join_group():
     if "join_group" not in request.form:
         flash("Please provide a group name to join.")
         print("Please provide a group name to join.")
-        return redirect("/groups")
+        return render_template("error.html", message="Error, please provide a group name to join.")
+        #return redirect("/groups")
     
     group_name = request.form["join_group"]
     group_id = groups_main.check_group(group_name)
@@ -97,7 +100,8 @@ def join_group():
     else:
         flash("This group does not exist")
         print("This group does not exist")
-        return redirect("/groups")
+        return render_template("error.html", message="Error, please provide a group name to join.")
+        #return redirect("/groups")
         
 @app.route("/groups")
 def groups():
@@ -110,7 +114,8 @@ def one_group(group_id):
     group_users = groups_main.list_users(group_id)
     if not access:
         flash("You don't have access to this group")
-        return redirect("/groups")
+        return render_template("error.html", message="You don't have access to this group.")
+        #return redirect("/groups")
     return render_template("one_group.html", group_users=group_users, group_id=group_id)
 
 @app.route("/event_cat", methods=["GET"])
