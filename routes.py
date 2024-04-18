@@ -38,11 +38,11 @@ def register():
         if not users.check_username(username):
             return render_template("error.html", message="The username is already taken")
 
-        if len(username) <= 2:
-            return render_template("error.html", message="The username must be longer than 2 characters")
+        if len(username) <= 2 or len(username) >= 20:
+            return render_template("error.html", message="The username must be between 2 and 20 characters")
         
-        if len(password1) <= 7:
-            return render_template("error.html", message="The password must be longer than 7 characters")     
+        if len(password1) <= 7 or len(password1) <= 50:
+            return render_template("error.html", message="The password must be between 7 and 50 characters")     
         
         if password1 != password2:
             return render_template("error.html", message="Passwords do not match")
@@ -80,14 +80,16 @@ def new_group():
 @app.route("/join_group", methods=["POST"])
 def join_group():
     users.check_token(request.form["csrf_token"])
+
     if "join_group" not in request.form:
         flash("Please provide a group name to join.")
         print("Please provide a group name to join.")
         return render_template("error.html", message="Error, please provide a group name to join.")
         #return redirect("/groups")
-    
+        
     group_name = request.form["join_group"]
     group_id = groups_main.check_group(group_name)
+
     if group_id:
         if groups_main.join_group(group_id):
             flash("You joined the group")
