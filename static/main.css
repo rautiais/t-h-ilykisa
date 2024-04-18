@@ -1,38 +1,38 @@
 body {
-    border: 2px black;
-    margin: auto;
-    padding: 25px 50px;
-    max-width: 45em;
-    font-family: 'Helvetica', 'Arial', sans-serif;
-    background: rgb(201, 231, 235);
-    color: rgb(36, 33, 33);
-  }
+  border: 2px black;
+  margin: auto;
+  padding: 25px 50px;
+  max-width: 45em;
+  font-family: 'Helvetica', 'Arial', sans-serif;
+  background: rgb(201, 231, 235);
+  color: rgb(36, 33, 33);
+}
   
 h1 {
-    color: rgb(9, 2, 84);
-    text-shadow: 2px 2px 5px rgb(227, 229, 255);
-    letter-spacing: 2px;
-    word-spacing: 5px;
-    text-decoration-line: underline;
-    text-decoration-color:  rgb(9, 2, 84);
-    text-decoration-thickness: auto;
-    text-decoration-style: double;
-    text-decoration-thickness: 1.5px;
-  }
+  color: rgb(9, 2, 84);
+  text-shadow: 2px 2px 5px rgb(227, 229, 255);
+  letter-spacing: 2px;
+  word-spacing: 5px;
+  text-decoration-line: underline;
+  text-decoration-color:  rgb(9, 2, 84);
+  text-decoration-thickness: auto;
+  text-decoration-style: double;
+  text-decoration-thickness: 1.5px;
+}
 
 h2 {
-    color: rgb(9, 2, 84);
-    letter-spacing: 1px;
-    word-spacing: 2px;
+  color: rgb(9, 2, 84);
+  letter-spacing: 1px;
+  word-spacing: 2px;
 }
 
 h3 {
-  color:  rgb(21, 12, 112);
+  color: rgb(21, 12, 112);
 }
 
 p {
-    color: rgb(36, 33, 33);
-  }
+  color: rgb(36, 33, 33);
+}
 
 a:link {
   text-decoration: none;
@@ -54,11 +54,49 @@ a:hover {
   padding: 20px;
 }
 
+nav {
+  text-align: left;
+}
+
+.navbar {
+  display: inline-block;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: rgb(252, 184, 218);
+  border-radius: 8px; 
+}
+
+.navbar li {
+  float: left; 
+}
+
+.navbar li a {
+  display: block;
+  color: rgb(9, 2, 84); 
+  font-weight: bold;
+  text-align: center;
+  padding: 16px 18px;
+  text-decoration: none;
+  transition: 0.3s; 
+}
+
+.navbar li a:hover {
+  background-color: rgb(201, 231, 235);
+  color: hotpink; 
+}
+
+.navbar li a.active {
+  background-color: rgb(43, 41, 102); 
+  color: hotpink;
+}
+
 /* div {
   width: 300px;
   margin: auto;
-  /* border: 1px solid red; */
- /* padding: 25px 50px 75px 100px;
+  border: 1px solid red;
+  padding: 25px 50px 75px 100px;
 } */
 
 .container {
@@ -71,4 +109,10 @@ a:hover {
   flex: 1; 
   padding: 10px; 
   /* border: 1px solid #ccc;  */
+}
+
+@media screen and (max-width: 600px) {
+  .navbar li {
+      float: none;
+  }
 }

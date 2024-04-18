@@ -6,17 +6,28 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
 </head>
 <body>
-
-<form action="/login" method="post">
-    Username: <input type="text" name="username">
-    <p>
-    Password: <input type="password" name="password">
-    <p>
-    <input type="submit" value="Log in">
-</form>
-    If you don't have an account, you can register <a href="/register">here</a>
-    <br>
-    <br>
-    <a href="/">Back to homepage</a>
+    <header>
+        <h1>The Clumsiness Competition</h1>
+    </header>
+    <nav>
+        <ul class="navbar">
+            <li><a href="/" class="{{ 'active' if request.path == '/' else '' }}">Homepage</a></li>
+            <li><a href="/info" class="{{ 'active' if request.path == '/info' else '' }}">About page</a></li>
+        </ul>
+    </nav>
+    <h2>Login</h2>
+    <form action="/login" method="post">
+        Username: <input type="text" name="username">
+        <p>
+        Password: <input type="password" name="password">
+        <p>
+        <input type="submit" value="Log in">
+    </form>
+        If you don't have an account, you can register <a href="/register">here</a>
+        <br>
+        <br>
+    <footer>
+        <a href="/">Back to homepage</a>
+    </footer>
 </body>
 </html>

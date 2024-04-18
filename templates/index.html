@@ -8,22 +8,31 @@
 <body>
     <header>
         <h1>The Clumsiness Competition</h1>
-        <h2>Feeling clumsy?</h2>
-        <h3>Welcome, you're in the right place.</h3>
     </header>
 
     <nav>
         {% if session.user_id %}
-            <p>{{ session.username | capitalize }}, you are logged in. </p>
-            <ul>
-                <li><a href="/info">About page</a></li>
-                <li><a href="/groups">Join a group</a></li>
-                <li><a href="/event_cat">Create an event</a></li>
+            <ul class="navbar">
+                <li><a href="/" class="{{ 'active' if request.path == '/' else '' }}">Homepage</a></li>
+                <li><a href="/info" class="{{ 'active' if request.path == '/info' else '' }}">About page</a></li>
+                <li><a href="/groups" class="{{ 'active' if request.path == '/groups' else '' }}">Join a group</a></li>
+                <li><a href="/event_cat" class="{{ 'active' if request.path == '/event_cat' else '' }}">Create an event</a></li>
+                <li><a href="/logout" class="{{ 'active' if request.path == '/logout' else '' }}">Log out</a></li>
             </ul>
-            <a href="/logout">Log out</a>
+    </nav>
+
+        <h2>Feeling clumsy?</h2>
+        <h3>Welcome, you're in the right place.</h3>
+        <p>{{ session.username | capitalize }}, you are logged in. </p>
         {% else %}
+        <nav>
+            <ul class="navbar">
+                <li><a href="/" class="{{ 'active' if request.path == '/' else '' }}">Homepage</a></li>
+                <li><a href="/info" class="{{ 'active' if request.path == '/info' else '' }}">About page</a></li>
+            </ul>
+        </nav>
             <p><b>Join the competition!</b> <a href="/login">Log in</a></p>
         {% endif %}
-    </nav>
+
 </body>
 </html>
