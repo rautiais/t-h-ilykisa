@@ -10,42 +10,45 @@
     <header>
         <h1>The Clumsiness Competition</h1>
     </header>
-    <nav>
-        <ul class="navbar">
-            <li><a href="/" class="{{ 'active' if request.path == '/' else '' }}">Homepage</a></li>
-            <li><a href="/info" class="{{ 'active' if request.path == '/info' else '' }}">About page</a></li>
-            <li><a href="/groups" class="{{ 'active' if request.path == '/groups' else '' }}">Join a group</a></li>
-            <li><a href="/event_cat" class="{{ 'active' if request.path == '/event_cat' else '' }}">Create an event</a></li>
-            <li><a href="/logout" class="{{ 'active' if request.path == '/logout' else '' }}">Log out</a></li>
-        </ul>
-    </nav>
-    <h2>Groups</h2>
-    <div class="container">
-        <div class="column"> 
-            <form action="/new_group" method="POST">
-                <label for="new_group">Create a new group:</label>
-                <input type="text" id="new_group" name="new_group" minlength="3" maxlength="25">
-                <input type="submit" value="Create group">
-                <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-            </form>
+
+    <div class="main-container">
+        <nav>
+            <ul class="navbar">
+                <li><a href="/" class="{{ 'active' if request.path == '/' else '' }}">Homepage</a></li>
+                <li><a href="/info" class="{{ 'active' if request.path == '/info' else '' }}">About page</a></li>
+                <li><a href="/groups" class="{{ 'active' if request.path == '/groups' else '' }}">Join a group</a></li>
+                <li><a href="/event_cat" class="{{ 'active' if request.path == '/event_cat' else '' }}">Create an event</a></li>
+                <li><a href="/logout" class="{{ 'active' if request.path == '/logout' else '' }}">Log out</a></li>
+            </ul>
+        </nav>
+        <h2>Groups</h2>
+        <div class="container">
+            <div class="column"> 
+                <form action="/new_group" method="POST">
+                    <label for="new_group">Create a new group:</label>
+                    <input type="text" id="new_group" name="new_group" minlength="3" maxlength="25">
+                    <input type="submit" value="Create group">
+                    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+                </form>
+            </div>
+            <div class="column"> 
+                <form action="/join_group" method="POST">
+                    <label for="join_group">Join an existing group:</label>
+                    <input type="text" id="join_group" name="join_group">
+                    <input type="submit" value="Join group">
+                    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+                </form>
+            </div>
         </div>
-        <div class="column"> 
-            <form action="/join_group" method="POST">
-                <label for="join_group">Join a group:</label>
-                <input type="text" id="join_group" name="join_group">
-                <input type="submit" value="Join group">
-                <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-            </form>
+        <h2>My groups</h2>
+        <div>
+            {% for one_group in my_groups %}
+            <a href="/one_group/{{ one_group.group_id }}">{{one_group.group_name}}</a>
+            {% endfor %}
         </div>
+        <br>
+        <br>
     </div>
-    <h2>My groups</h2>
-    <div>
-        {% for one_group in my_groups %}
-        <a href="/one_group/{{ one_group.group_id }}">{{one_group.group_name}}</a>
-        {% endfor %}
-    </div>
-    <br>
-    <br>
     <footer>
         <a href="/">Back to homepage</a>
     </footer>

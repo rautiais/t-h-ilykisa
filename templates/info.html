@@ -6,40 +6,43 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
 </head>
 <body>
+
     <header>
         <h1>The Clumsiness Competition</h1>
     </header>
 
-    <nav>
-        {% if session.user_id %}
+    <div class="main-container">
+        <nav>
+            {% if session.user_id %}
+                <ul class="navbar">
+                    <li><a href="/" class="{{ 'active' if request.path == '/' else '' }}">Homepage</a></li>
+                    <li><a href="/info" class="{{ 'active' if request.path == '/info' else '' }}">About page</a></li>
+                    <li><a href="/groups" class="{{ 'active' if request.path == '/groups' else '' }}">Join a group</a></li>
+                    <li><a href="/event_cat" class="{{ 'active' if request.path == '/event_cat' else '' }}">Create an event</a></li>
+                    <li><a href="/logout" class="{{ 'active' if request.path == '/logout' else '' }}">Log out</a></li>
+                </ul>
+        </nav>
+            {% else %}
             <ul class="navbar">
                 <li><a href="/" class="{{ 'active' if request.path == '/' else '' }}">Homepage</a></li>
                 <li><a href="/info" class="{{ 'active' if request.path == '/info' else '' }}">About page</a></li>
-                <li><a href="/groups" class="{{ 'active' if request.path == '/groups' else '' }}">Join a group</a></li>
-                <li><a href="/event_cat" class="{{ 'active' if request.path == '/event_cat' else '' }}">Create an event</a></li>
-                <li><a href="/logout" class="{{ 'active' if request.path == '/logout' else '' }}">Log out</a></li>
             </ul>
-    </nav>
-        {% else %}
-        <ul class="navbar">
-            <li><a href="/" class="{{ 'active' if request.path == '/' else '' }}">Homepage</a></li>
-            <li><a href="/info" class="{{ 'active' if request.path == '/info' else '' }}">About page</a></li>
-        </ul>
-    </nav>
-        {% endif %}
+        </nav>
+            {% endif %}
 
-    <h2>What is the clumsiness competition?</h2>
+        <h2>What is the clumsiness competition?</h2>
 
-    <h3>The clumsiness competition application keeps track of the users' clumsiness.
-    </h3>
+        <h3>The clumsiness competition application keeps track of the users' clumsiness.
+        </h3>
 
-    <p>The idea behind this application is to determine who is the most clumsy person in the group. There are many ways to exhibit clumsiness, for instance, tripping, falling down while walking (maybe the road is icy or maybe you are just clumsy), falling down while standing (now you are just being clumsy), falling off a vehicle (e.g., a bicycle), bumping into something (e.g., a wall, a chair, a coffee table, another person (spatial awareness is challenging..)), getting a cut or a burn while doing something (e.g., reading a book and getting a paper cut, burning yourself while cooking or baking), hitting your head on a cabinet door, or dropping something for no reason. There might also be a correlation between being clumsy and intoxication levels, which this application considers by checking if the clumsiness occurred while being intoxicated.
-    </p>
-    <p>In the end, the most important criterion for defining clumsiness is that it is caused by oneself accidentally. It is not about incidents that occur while attempting something potentially harmful but about everyday incidents.
-    </p>
-    <h3>So let's all have a laugh and start competing on who is the clumsiest!</h3>
-    <br>
-    <br>
+        <p>The idea behind this application is to determine who is the most clumsy person in the group. There are many ways to exhibit clumsiness, for instance, tripping, falling down while walking (maybe the road is icy or maybe you are just clumsy), falling down while standing (now you are just being clumsy), falling off a vehicle (e.g., a bicycle), bumping into something (e.g., a wall, a chair, a coffee table, another person (spatial awareness is challenging..)), getting a cut or a burn while doing something (e.g., reading a book and getting a paper cut, burning yourself while cooking or baking), hitting your head on a cabinet door, or dropping something for no reason. There might also be a correlation between being clumsy and intoxication levels, which this application considers by checking if the clumsiness occurred while being intoxicated.
+        </p>
+        <p>In the end, the most important criterion for defining clumsiness is that it is caused by oneself accidentally. It is not about incidents that occur while attempting something potentially harmful but about everyday incidents.
+        </p>
+        <h3>So let's all have a laugh and start competing on who is the clumsiest!</h3>
+        <br>
+        <br>
+    </div>
     <footer>
         <a href="/">Back to homepage</a>
     </footer>

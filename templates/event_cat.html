@@ -10,23 +10,25 @@
         <h1>The Clumsiness Competition</h1>
     </header>
 
-    <nav>
-            <ul class="navbar">
-                <li><a href="/" class="{{ 'active' if request.path == '/' else '' }}">Homepage</a></li>
-                <li><a href="/info" class="{{ 'active' if request.path == '/info' else '' }}">About page</a></li>
-                <li><a href="/groups" class="{{ 'active' if request.path == '/groups' else '' }}">Join a group</a></li>
-                <li><a href="/event_cat" class="{{ 'active' if request.path == '/event_cat' else '' }}">Create an event</a></li>
-                <li><a href="/logout" class="{{ 'active' if request.path == '/logout' else '' }}">Log out</a></li>
-            </ul>
-    </nav>
+    <div class="main-container">
+        <nav>
+                <ul class="navbar">
+                    <li><a href="/" class="{{ 'active' if request.path == '/' else '' }}">Homepage</a></li>
+                    <li><a href="/info" class="{{ 'active' if request.path == '/info' else '' }}">About page</a></li>
+                    <li><a href="/groups" class="{{ 'active' if request.path == '/groups' else '' }}">Join a group</a></li>
+                    <li><a href="/event_cat" class="{{ 'active' if request.path == '/event_cat' else '' }}">Create an event</a></li>
+                    <li><a href="/logout" class="{{ 'active' if request.path == '/logout' else '' }}">Log out</a></li>
+                </ul>
+        </nav>
 
-    <h2>Event categories</h2>
+        <h2>Event categories</h2>
 
-    <form action="/event_cat" method="get">
-        Event category name: <input type="text" name="event_cat_name">
-        <p>
-        <input type="submit" value="Create">
-        </form>
+        <form action="/event_cat" method="get">
+            Event category name: <input type="text" name="event_cat_name">
+            <p>
+            <input type="submit" value="Create">
+            </form>
+    </div>
 
     <footer>
         <a href="/">Back to homepage</a>

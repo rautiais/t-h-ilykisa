@@ -1,13 +1,32 @@
 body {
   border: 2px black;
   margin: auto;
-  padding: 25px 50px;
+  padding: 25px;
   max-width: 45em;
   font-family: 'Helvetica', 'Arial', sans-serif;
   background: rgb(201, 231, 235);
   color: rgb(36, 33, 33);
 }
   
+.main-container {
+  background: white;
+  padding: 20px;
+  margin: 20px auto; 
+  box-shadow: 0 0 10px rgba(0,0,0,0.1); 
+}
+
+header {
+  background-color: white;
+  text-align: center;
+  padding: 5px;
+}
+
+footer {
+  background-color: white;
+  text-align: center;
+  padding: 5px;
+}
+
 h1 {
   color: rgb(9, 2, 84);
   text-shadow: 2px 2px 5px rgb(227, 229, 255);
@@ -40,18 +59,6 @@ a:link {
 
 a:hover {
   color: hotpink;
-}
-
-.header {
-  background-color: #F1F1F1;
-  text-align: center;
-  padding: 20px;
-}
-
-.footer {
-  background-color: #F1F1F1;
-  text-align: center;
-  padding: 20px;
 }
 
 nav {

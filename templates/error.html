@@ -10,30 +10,32 @@
         <h1>The Clumsiness Competition</h1>
     </header>
 
-    <nav>
-        {% if session.user_id %}
+    <div class="main-container">
+        <nav>
+            {% if session.user_id %}
+                <ul class="navbar">
+                    <li><a href="/" class="{{ 'active' if request.path == '/' else '' }}">Homepage</a></li>
+                    <li><a href="/info" class="{{ 'active' if request.path == '/info' else '' }}">About page</a></li>
+                    <li><a href="/groups" class="{{ 'active' if request.path == '/groups' else '' }}">Join a group</a></li>
+                    <li><a href="/event_cat" class="{{ 'active' if request.path == '/event_cat' else '' }}">Create an event</a></li>
+                    <li><a href="/logout" class="{{ 'active' if request.path == '/logout' else '' }}">Log out</a></li>
+                </ul>
+        </nav>
+        {% else %}
+        <nav>
             <ul class="navbar">
                 <li><a href="/" class="{{ 'active' if request.path == '/' else '' }}">Homepage</a></li>
                 <li><a href="/info" class="{{ 'active' if request.path == '/info' else '' }}">About page</a></li>
-                <li><a href="/groups" class="{{ 'active' if request.path == '/groups' else '' }}">Join a group</a></li>
-                <li><a href="/event_cat" class="{{ 'active' if request.path == '/event_cat' else '' }}">Create an event</a></li>
-                <li><a href="/logout" class="{{ 'active' if request.path == '/logout' else '' }}">Log out</a></li>
             </ul>
-    </nav>
-    {% else %}
-    <nav>
-        <ul class="navbar">
-            <li><a href="/" class="{{ 'active' if request.path == '/' else '' }}">Homepage</a></li>
-            <li><a href="/info" class="{{ 'active' if request.path == '/info' else '' }}">About page</a></li>
-        </ul>
-    </nav>
-    {% endif %}
-    <br>
-    <br>
-    Error: {{ message }}
-    <br>
-    <br>
-    <br>
+        </nav>
+        {% endif %}
+        <br>
+        <br>
+        Error: {{ message }}
+        <br>
+        <br>
+        <br>
+    </div>
     <footer>
         <a href="javascript:history. back()"><b>Back</b></a>
     </footer>
