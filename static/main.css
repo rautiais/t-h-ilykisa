@@ -1,5 +1,5 @@
 body {
-  border: 2px none;
+  border: 0;
   margin: auto;
   padding: 30px;
   max-width: 48em;
@@ -7,12 +7,16 @@ body {
   background: rgb(201, 231, 235);
   color: rgb(36, 33, 33);
 }
+
+.wrapper {
+  box-shadow: 0 0 7px  rgb(9, 2, 84, 0.3); 
+  margin: 0 auto;
+}
   
 .main-container {
   background: white;
   padding: 20px;
-  margin: 0px auto; 
-  box-shadow: 0 0 10px rgba(0,0,0,0.1); 
+  margin: 0; 
 }
 
 header {
@@ -20,7 +24,6 @@ header {
   text-align: center;
   padding: 5px;
   margin: 0;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1); 
 }
 
 footer {
@@ -28,7 +31,6 @@ footer {
   text-align: center;
   padding: 5px;
   margin: 0;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
 * {
@@ -111,13 +113,6 @@ nav {
   color: hotpink;
 }
 
-/* div {
-  width: 300px;
-  margin: auto;
-  border: 1px solid red;
-  padding: 25px 50px 75px 100px;
-} */
-
 .container {
   display: flex; 
   justify-content: space-around; 
@@ -127,7 +122,6 @@ nav {
 .column {
   flex: 1; 
   padding: 10px; 
-  /* border: 1px solid #ccc;  */
 }
 
 @media screen and (max-width: 600px) {
