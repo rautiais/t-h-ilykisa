@@ -8,7 +8,7 @@ In the end, the most important criterion for defining clumsiness is that it is c
 
 ### Current state of the application
 
-At the moment, working features include registering, logging in and logging out. There are certain requirements for registering and logging in (e.g. username being unique, having proper number of characters in username & password). You can create a new group and join an existing group. You can see the list of the groups you belong to. However, if you click the group name, you get an internal server error (it's a working process). There is also a page for creating a new event category but the event categories don't go to the database yet and the other event features are still lacking. The layout is close to being ready but there are still some details to adjust. 
+At the moment, working features include registering, logging in and logging out. There are certain requirements for registering and logging in (e.g. username being unique, having proper number of characters in username & password). You can create a new group and join an existing group. You can see the list of the groups you belong to. You can click on the groups you belong to and see all the members of the group. There is also a page for creating a new event category but the event categories don't go to the database yet and the other event features are still lacking. The layout is close to being ready but there are still some details to adjust. 
 
 <b>Application features (working process):</b>
 - The user can create an account, log in and log out.
