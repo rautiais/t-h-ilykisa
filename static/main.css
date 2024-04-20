@@ -19,6 +19,16 @@ body {
   margin: 0; 
 }
 
+.main-container div a {
+  display: block;  
+  margin-bottom: 10px;  
+}
+
+.main-container > div > a {
+  display: block;
+  margin-bottom: 10px;
+}
+
 header {
   background-color: white;
   text-align: center;
@@ -65,7 +75,12 @@ p {
 }
 
 a:link {
+  color: rgb(9, 2, 84);
   text-decoration: none;
+}
+
+a:visited {
+  color: rgb(9, 2, 84);
 }
 
 a:hover {

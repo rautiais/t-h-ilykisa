@@ -43,7 +43,7 @@
         <h2>My groups</h2>
         <div>
             {% for one_group in my_groups %}
-            <a href="/one_group/{{ one_group.group_id }}">{{one_group.group_name}}</a>
+            <a href="/one_group/{{ one_group.group_id}}">{{one_group.group_name | capitalize}}</a>
             {% endfor %}
         </div>
         <br>
