@@ -1,8 +1,8 @@
 body {
-  border: 2px black;
+  border: 2px none;
   margin: auto;
-  padding: 25px;
-  max-width: 45em;
+  padding: 30px;
+  max-width: 48em;
   font-family: 'Helvetica', 'Arial', sans-serif;
   background: rgb(201, 231, 235);
   color: rgb(36, 33, 33);
@@ -11,7 +11,7 @@ body {
 .main-container {
   background: white;
   padding: 20px;
-  margin: 20px auto; 
+  margin: 0px auto; 
   box-shadow: 0 0 10px rgba(0,0,0,0.1); 
 }
 
@@ -19,12 +19,20 @@ header {
   background-color: white;
   text-align: center;
   padding: 5px;
+  margin: 0;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1); 
 }
 
 footer {
   background-color: white;
   text-align: center;
   padding: 5px;
+  margin: 0;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+* {
+  box-sizing: border-box;
 }
 
 h1 {
@@ -51,6 +59,7 @@ h3 {
 
 p {
   color: rgb(36, 33, 33);
+  text-align: justify;
 }
 
 a:link {
@@ -66,7 +75,9 @@ nav {
 }
 
 .navbar {
-  display: inline-block;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -76,7 +87,8 @@ nav {
 }
 
 .navbar li {
-  float: left; 
+  display: flex;
+  justify-content: center;
 }
 
 .navbar li a {
@@ -84,7 +96,7 @@ nav {
   color: rgb(9, 2, 84); 
   font-weight: bold;
   text-align: center;
-  padding: 16px 18px;
+  padding: 18px 20px;
   text-decoration: none;
   transition: 0.3s; 
 }
