@@ -41,7 +41,7 @@ def register():
         if len(username) <= 2 or len(username) >= 20:
             return render_template("error.html", message="The username must be between 2 and 20 characters")
         
-        if len(password1) <= 7 or len(password1) <= 50:
+        if len(password1) <= 7 or len(password1) >= 50:
             return render_template("error.html", message="The password must be between 7 and 50 characters")     
         
         if password1 != password2:
@@ -63,16 +63,16 @@ def new_group():
     group_name = request.form["new_group"]
     if groups_main.check_group(group_name):
         print("Group name is not unique")
-        flash("Group name is not unique")
+        #flash("Group name is not unique")
         return render_template("error.html", message="Group name is not unique")
         #return redirect("/groups")
     else:
         if groups_main.new_group(group_name):
             print("Creating a group was successful")
-            flash("Creating a group was successful")
+            #flash("Creating a group was successful")
             return redirect("/groups")
         else:
-            flash("Error")
+            #flash("Error")
             print("Error")
             return render_template("error.html", message="Error, creating the group was not successful")
             #return redirect("/groups")
@@ -82,7 +82,7 @@ def join_group():
     users.check_token(request.form["csrf_token"])
 
     if "join_group" not in request.form:
-        flash("Please provide a group name to join.")
+        #flash("Please provide a group name to join.")
         print("Please provide a group name to join.")
         return render_template("error.html", message="Error, please provide a group name to join.")
         #return redirect("/groups")
@@ -92,15 +92,15 @@ def join_group():
 
     if group_id:
         if groups_main.join_group(group_id):
-            flash("You joined the group")
+            #flash("You joined the group")
             print("You joined the group")
             return redirect("/groups")
         else:
-            flash("You are already in the group")
+            #flash("You are already in the group")
             print("You are already in the group")
             return redirect("/groups")
     else:
-        flash("This group does not exist")
+        #flash("This group does not exist")
         print("This group does not exist")
         return render_template("error.html", message="Error, please provide a group name to join.")
         #return redirect("/groups")
@@ -112,13 +112,10 @@ def groups():
 
 @app.route("/one_group/<int:group_id>")
 def one_group(group_id):
-    access = groups_main.check_access(group_id)
     group_users = groups_main.list_users(group_id)
-    if not access:
-        flash("You don't have access to this group")
-        return render_template("error.html", message="You don't have access to this group.")
-        #return redirect("/groups")
-    return render_template("one_group.html", group_users=group_users, group_id=group_id)
+    if not group_users:
+        return render_template("one_group.html", group_users=None)
+    return render_template("one_group.html", group_users=group_users)
 
 @app.route("/event_cat", methods=["GET"])
 def event_cat():
