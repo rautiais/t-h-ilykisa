@@ -3,7 +3,8 @@ from sqlalchemy.sql import text
 from flask import session
 
 def check_group(group_name):
-    sql = text("SELECT id FROM groups WHERE group_name=:group_name")
+    sql = text("""SELECT id FROM groups 
+               WHERE group_name=:group_name""")
     result = db.session.execute(sql, {"group_name":group_name})
     group_id = result.fetchone()
     return group_id[0] if group_id else False
