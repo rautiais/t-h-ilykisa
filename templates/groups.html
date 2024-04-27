@@ -40,6 +40,14 @@
                 </form>
             </div>
         </div>
+        <h2>All groups</h2>
+        <div>
+            {% for group in all_groups %}
+                <p>{{ group.group_name | capitalize}}</p>
+            {% else %}
+                <p>No groups found.</p>
+            {% endfor %}
+        </div>
         <h2>My groups</h2>
         <div>
             {% for one_group in my_groups %}

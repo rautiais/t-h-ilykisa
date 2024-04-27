@@ -24,7 +24,8 @@ def new_group(group_name):
 
 def join_group(group_id):
     try:
-        sql = text("INSERT INTO user_info (group_id, user_id) VALUES (:group_id, :user_id)")
+        sql = text("""INSERT INTO user_info (group_id, user_id) 
+                   VALUES (:group_id, :user_id)""")
         db.session.execute(sql, {"group_id":group_id, "user_id":session["user_id"]})
         db.session.commit()
         return True
@@ -55,3 +56,9 @@ def check_access(group_id):
     if result.fetchone():
         return True
     return False
+
+# def test_all_groups(group_name):
+#     sql = text("""SELECT id FROM groups
+#                WHERE group_name=:group_name""")
+#     result = db.session.execute(sql, {"group_name":group_name})
+#     return result.fetchall()
