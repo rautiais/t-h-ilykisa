@@ -32,7 +32,7 @@ def join_group(group_id):
     except:
         return False
     
-def all_groups():
+def users_all_groups():
     sql = text("""SELECT u.group_id, g.group_name 
                FROM user_info u INNER JOIN groups g
                ON g.id = u.group_id
@@ -58,6 +58,7 @@ def check_access(group_id):
     return False
 
 def list_all_groups():
-    sql = text("""SELECT group_name FROM groups""")
+    sql = text("""SELECT id, group_name FROM groups
+               ORDER BY group_name""")
     result = db.session.execute(sql)
     return result.fetchall()

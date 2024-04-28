@@ -61,53 +61,38 @@ def info():
 def new_group():
     users.check_token(request.form["csrf_token"])
     group_name = request.form["new_group"]
+
     if groups_main.check_group(group_name):
-        print("Group name is not unique")
-        #flash("Group name is not unique")
+        flash("Group name is not unique")
         return render_template("error.html", message="Group name is not unique")
-        #return redirect("/groups")
+
     else:
         if groups_main.new_group(group_name):
-            print("Creating a group was successful")
-            #flash("Creating a group was successful")
+            flash("Creating a group was successful")
             return redirect("/groups")
         else:
-            #flash("Error")
-            print("Error")
+            flash("Error")
             return render_template("error.html", message="Error, creating the group was not successful")
-            #return redirect("/groups")
 
 @app.route("/join_group", methods=["POST"])
 def join_group():
     users.check_token(request.form["csrf_token"])
+    group_id = request.form.get("join_group")
 
-    if "join_group" not in request.form:
-        #flash("Please provide a group name to join.")
-        print("Please provide a group name to join.")
-        return render_template("error.html", message="Error, please provide a group name to join.")
-        #return redirect("/groups")
-        
-    group_name = request.form["join_group"]
-    group_id = groups_main.check_group(group_name)
+    if not group_id:
+        flash("Please provide a group name to join.")
+        return render_template("error.html", message="Error, please select a group to join.")        
 
-    if group_id:
-        if groups_main.join_group(group_id):
-            #flash("You joined the group")
-            print("You joined the group")
-            return redirect("/groups")
-        else:
-            #flash("You are already in the group")
-            print("You are already in the group")
-            return redirect("/groups")
+    if groups_main.join_group(group_id):
+        flash("You joined the group")
+        return redirect("/groups")
     else:
-        #flash("This group does not exist")
-        print("This group does not exist")
-        return render_template("error.html", message="Error, please provide a group name to join.")
-        #return redirect("/groups")
+        flash("You are already in the group or an error occurred")
+        return render_template("error.html", message="You are already in the group or an error occurred.")
         
 @app.route("/groups")
 def groups():
-    my_groups = groups_main.all_groups()
+    my_groups = groups_main.users_all_groups()
     all_groups = groups_main.list_all_groups()
     return render_template("groups.html", my_groups=my_groups, all_groups=all_groups)  
 

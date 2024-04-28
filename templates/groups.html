@@ -36,7 +36,7 @@
                     <label for="join_group">Join a group:</label>
                     <br>
                     <select id="join_group" name="join_group" class="form-control">
-                        <option value="" selected>Select a group</option>
+                        <option value="" disabled selected>Select a group</option>
                         {% for group in all_groups | sort(attribute='group_name') %}
                             <option value="{{ group.id }}">{{ group.group_name | capitalize }}</option>
                         {% endfor %}
@@ -48,7 +48,7 @@
         </div>
         <h3>My groups</h3>
         <div>
-            {% for one_group in my_groups %}
+            {% for one_group in my_groups | sort(attribute='group_name') %}
             <a href="/one_group/{{ one_group.group_id}}">{{one_group.group_name | capitalize}}</a>
             {% endfor %}
         </div>
