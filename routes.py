@@ -38,11 +38,14 @@ def register():
         if not users.check_username(username):
             return render_template("error.html", message="The username is already taken")
 
+        if not username.islower():
+            return render_template("error.html", message="The username has to be in lower case")
+
         if len(username) <= 2 or len(username) >= 20:
-            return render_template("error.html", message="The username must be between 2 and 20 characters")
+            return render_template("error.html", message="The username must be between 3 and 20 characters")
         
         if len(password1) <= 7 or len(password1) >= 50:
-            return render_template("error.html", message="The password must be between 7 and 50 characters")     
+            return render_template("error.html", message="The password must be between 8 and 50 characters")     
         
         if password1 != password2:
             return render_template("error.html", message="Passwords do not match")
