@@ -19,13 +19,17 @@
             </ul>
         </nav>
         <h2>Login</h2>
-        <form action="/login" method="post">
-            Username: <input type="text" name="username">
-            <p>
-            Password: <input type="password" name="password">
-            <p>
-            <input type="submit" value="Log in">
+
+        <form action="/login" method="POST">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" minlength="3" maxlength="20" class="form-control" style="width: 35%;">
+            <br>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" minlength="7" maxlength="50" class="form-control" style="width: 35%;">
+            <br>
+            <input type="submit" value="Log in" class="form-button">
         </form>
+        <br>
             If you don't have an account, you can register <a href="/register">here</a>.
             <br>
             <br>

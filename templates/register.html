@@ -7,28 +7,33 @@
 </head>
 <body>
     <div class="wrapper">
-    <header>
-        <h1>The Clumsiness Competition</h1>
-    </header>
+        <header>
+            <h1>The Clumsiness Competition</h1>
+        </header>
 
-    <div class="main-container">
-        <nav>
-            <ul class="navbar">
-                <li><a href="/" class="{{ 'active' if request.path == '/' else '' }}">Homepage</a></li>
-                <li><a href="/info" class="{{ 'active' if request.path == '/info' else '' }}">About page</a></li>
-            </ul>
-        </nav>
-        <br>
-        <form action="/register" method="post">
-        Username: <input type="text" name="username">
-        <p>
-        Password: <input type="password" name="password1">
-        <p>
-        Repeat password: <input type="password" name="password2">
-        <p>
-        <input type="submit" value="Register">
-        </form>
-        <br>
+        <div class="main-container">
+            <nav>
+                <ul class="navbar">
+                    <li><a href="/" class="{{ 'active' if request.path == '/' else '' }}">Homepage</a></li>
+                    <li><a href="/info" class="{{ 'active' if request.path == '/info' else '' }}">About page</a></li>
+                </ul>
+            </nav>
+            <br>
+            <form action="/register" method="POST">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" minlength="3" maxlength="20" class="form-control" style="width: 35%;">
+                <br>
+                <label for="password1">Password:</label>
+                <input type="password" id="password1" name="password1" minlength="7" maxlength="50" class="form-control" style="width: 35%;">
+                <br>
+                <label for="password2">Repeat password:</label>
+                <input type="password" id="password2" name="password2" minlength="7" maxlength="50" class="form-control" style="width: 35%;">
+                <br>
+                <input type="submit" value="Register" class="form-button">
+            </form>
+            <br>
+            <p><i> Username must be in lower case and between 3 and 20 characters.</p>
+            <p> The password must be between 7 and 50 characters</i></p>
     </div>
     <footer>
         <a href="/login">Back to login</a>
