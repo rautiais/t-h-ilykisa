@@ -108,7 +108,8 @@ def join_group():
 @app.route("/groups")
 def groups():
     my_groups = groups_main.all_groups()
-    return render_template("groups.html", my_groups=my_groups)  
+    all_groups = groups_main.list_all_groups()
+    return render_template("groups.html", my_groups=my_groups, all_groups=all_groups)  
 
 @app.route("/one_group/<int:group_id>")
 def one_group(group_id):

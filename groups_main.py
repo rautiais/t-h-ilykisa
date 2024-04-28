@@ -57,8 +57,7 @@ def check_access(group_id):
         return True
     return False
 
-# def test_all_groups(group_name):
-#     sql = text("""SELECT id FROM groups
-#                WHERE group_name=:group_name""")
-#     result = db.session.execute(sql, {"group_name":group_name})
-#     return result.fetchall()
+def list_all_groups():
+    sql = text("""SELECT group_name FROM groups""")
+    result = db.session.execute(sql)
+    return result.fetchall()

@@ -26,29 +26,27 @@
             <div class="column"> 
                 <form action="/new_group" method="POST">
                     <label for="new_group">Create a new group:</label>
-                    <input type="text" id="new_group" name="new_group" minlength="3" maxlength="25">
-                    <input type="submit" value="Create group">
+                    <input type="text" id="new_group" name="new_group" minlength="3" maxlength="25" class="form-control">
+                    <input type="submit" value="Create group" class="form-button">
                     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
                 </form>
             </div>
             <div class="column"> 
                 <form action="/join_group" method="POST">
-                    <label for="join_group">Join an existing group:</label>
-                    <input type="text" id="join_group" name="join_group">
-                    <input type="submit" value="Join group">
+                    <label for="join_group">Join a group:</label>
+                    <br>
+                    <select id="join_group" name="join_group" class="form-control">
+                        <option value="" selected>Select a group</option>
+                        {% for group in all_groups | sort(attribute='group_name') %}
+                            <option value="{{ group.id }}">{{ group.group_name | capitalize }}</option>
+                        {% endfor %}
+                    </select>
+                    <input type="submit" value="Join group" class="form-button">
                     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
                 </form>
             </div>
         </div>
-        <h2>All groups</h2>
-        <div>
-            {% for group in all_groups %}
-                <p>{{ group.group_name | capitalize}}</p>
-            {% else %}
-                <p>No groups found.</p>
-            {% endfor %}
-        </div>
-        <h2>My groups</h2>
+        <h3>My groups</h3>
         <div>
             {% for one_group in my_groups %}
             <a href="/one_group/{{ one_group.group_id}}">{{one_group.group_name | capitalize}}</a>

@@ -144,3 +144,36 @@ nav {
       float: none;
   }
 }
+
+select {
+  width: 80%; 
+  padding: 5px;
+  margin: 10px 0;
+  border-radius: 4px;
+  border: 1px solid rgb(9, 2, 84); 
+}
+
+.form-control {
+  width: 80%; 
+  padding: 5px; 
+  margin: 10px 0; 
+  border-radius: 4px; 
+  border: 1px solid  rgb(9, 2, 84); 
+  box-sizing: border-box; 
+}
+
+.form-button {
+  padding: 10px 20px;
+  background-color: rgb(252, 184, 218); 
+  color:  rgb(9, 2, 84);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+}
+
+.form-button:hover {
+  background-color: rgb(201, 231, 235);
+  color: hotpink; 
+}
