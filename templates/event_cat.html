@@ -24,7 +24,7 @@
             <h2>Event categories</h2>
             <div class="container">
                 <div class="column">
-                    <form action="/event_cat" method="POST">
+                    <form action="/new_event_cat" method="POST">
                         <label for="new_event_cat">Create a new event category:</label>
                         <input type="text" id="new_event_cat" name="new_event_cat" minlength="3" maxlength="25" class="form-control" style="width: 35%;">
                         <input type="submit" value="Create category" class="form-button">
@@ -34,8 +34,8 @@
             </div>
             <h3>All event categories:</h3>
             <div>
-                {% for cat_name in event_cats %}
-                    <p>{{ cat_name | capitalize }}</p>
+                {% for cat in all_event_cats %}
+                    <a href="/events/{{cat.id}}">{{ cat.event_cat_name | capitalize }}</a>
                 {% else %}
                     <p>No event categories found.</p>
                 {% endfor %}

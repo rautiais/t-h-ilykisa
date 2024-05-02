@@ -108,18 +108,28 @@ def one_group(group_id):
 
 @app.route("/event_cat", methods=["GET"])
 def event_cat():
-    return render_template("event_cat.html")
+    all_event_cats = events_main.all_event_cats()
+    return render_template("event_cat.html", all_event_cats=all_event_cats)
 
 @app.route("/new_event_cat", methods=["POST"])
 def new_event_cat():
     event_cat_name = request.form["new_event_cat"]
+
     if events_main.check_event_cat(event_cat_name):
-        print("Event category name is not unique")
+        flash("Event category name is not unique")
         return render_template("error.html", message="Category name is not unique")
+    
     else:
         if events_main.new_event_cat(event_cat_name):
-            print("Creating a category was successful")
+            flash("Creating a category was successful")
             return redirect("/event_cat")
         else:
-            print("Error")
+            flash("Error")
             return render_template("error.html", message="Error")
+
+@app.route("/events/<int:cat_id>")
+def events(cat_id):
+    events_in_cat = events_main.list_events_in_cat(cat_id)
+    if not events_in_cat:
+        return render_template("events.html")
+    return render_template("events.html", events_in_cat=events_in_cat, category_name=events_in_cat[0].event_cat_name)
