@@ -3,7 +3,7 @@ DROP TABLE IF EXISTS events CASCADE;
 DROP TABLE IF EXISTS event_cat CASCADE;
 DROP TABLE IF EXISTS groups CASCADE;
 DROP TABLE IF EXISTS user_info CASCADE;
-
+DROP TABLE IF EXISTS user_events CASCADE;
 
 CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY, 
@@ -36,4 +36,13 @@ CREATE TABLE IF NOT EXISTS user_info (
     user_id INTEGER REFERENCES users(id),
     group_id INTEGER REFERENCES groups(id),
     UNIQUE (user_id, group_id)
+);
+
+CREATE TABLE IF NOT EXISTS user_events (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES users(id),
+    group_id INTEGER REFERENCES groups(id),
+    event_id INTEGER REFERENCES events(id),
+    points INTEGER,
+    date_logged TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
