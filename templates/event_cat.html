@@ -26,7 +26,7 @@
                 <div class="column">
                     <form action="/new_event_cat" method="POST">
                         <label for="new_event_cat">Create a new event category:</label>
-                        <input type="text" id="new_event_cat" name="new_event_cat" minlength="3" maxlength="25" class="form-control" style="width: 35%;">
+                        <input type="text" id="new_event_cat" name="new_event_cat" minlength="3" maxlength="25" required class="form-control" style="width: 35%;">
                         <input type="submit" value="Create category" class="form-button">
                         <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
                     </form>

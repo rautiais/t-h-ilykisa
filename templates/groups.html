@@ -26,7 +26,7 @@
             <div class="column"> 
                 <form action="/new_group" method="POST">
                     <label for="new_group">Create a new group:</label>
-                    <input type="text" id="new_group" name="new_group" minlength="3" maxlength="25" class="form-control">
+                    <input type="text" id="new_group" name="new_group" minlength="3" maxlength="25" required class="form-control">
                     <input type="submit" value="Create group" class="form-button">
                     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
                 </form>
@@ -35,7 +35,7 @@
                 <form action="/join_group" method="POST">
                     <label for="join_group">Join a group:</label>
                     <br>
-                    <select id="join_group" name="join_group" class="form-control">
+                    <select id="join_group" name="join_group" required class="form-control">
                         <option value="" disabled selected>Select a group</option>
                         {% for group in all_groups | sort(attribute='group_name') %}
                             <option value="{{ group.id }}">{{ group.group_name | capitalize }}</option>
