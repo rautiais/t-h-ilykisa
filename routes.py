@@ -1,5 +1,5 @@
 from app import app
-from flask import redirect, render_template, request, flash
+from flask import Flask, redirect, render_template, request, flash, jsonify
 import users
 import groups_main
 import events_main
@@ -102,9 +102,10 @@ def groups():
 @app.route("/one_group/<int:group_id>")
 def one_group(group_id):
     group_users = groups_main.list_users(group_id)
+    all_event_cats = events_main.all_event_cats()
     if not group_users:
         return render_template("one_group.html", group_users=None)
-    return render_template("one_group.html", group_users=group_users)
+    return render_template("one_group.html", group_users=group_users, all_event_cats=all_event_cats, group_id=group_id)
 
 @app.route("/event_cat", methods=["GET"])
 def event_cat():
@@ -159,3 +160,24 @@ def new_event(cat_id):
     else:
         flash("Error in creating an event")
         return render_template("error.html", message="Error in creating an event")
+
+@app.route("/events_for_category/<int:cat_id>")
+def events_for_cateogry(cat_id):
+    events = events_main.get_events_by_cateogry(cat_id)
+    return jsonify(events)
+
+@app.route("/log_event/<int:group_id>", methods=["POST"])
+def log_event(group_id):
+    cat_id = request.form["category"]
+    event_id = request.form["event"]
+
+    if not cat_id or not event_id:
+        flash("You must select both the category and the event")
+        return render_template("error.html", message="You must select both the category and the event")
+    
+    if groups_main.log_group_event(group_id, event_id):
+        flash("Event logged successfully")
+    else:
+        flash("Failed to log the event")
+        
+    return redirect(f"/one_group/{group_id}")

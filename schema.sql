@@ -26,13 +26,14 @@ CREATE TABLE IF NOT EXISTS events (
 CREATE TABLE IF NOT EXISTS groups (
     id SERIAL PRIMARY KEY,
     member_id INTEGER REFERENCES users,
-    group_name TEXT UNIQUE CHECK(group_name IS NOT NULL AND length(group_name) > 2 AND length(group_name) < 20)
+    group_name TEXT UNIQUE CHECK(group_name IS NOT NULL AND length(group_name) > 2 AND length(group_name) < 20),
+    total_points INTEGER DEFAULT 0
 );
 
 CREATE TABLE IF NOT EXISTS user_info (
     id SERIAL PRIMARY KEY,
     username INTEGER REFERENCES users,
-    group_id INTEGER REFERENCES groups,
-    user_id INTEGER REFERENCES users,
+    user_id INTEGER REFERENCES users(id),
+    group_id INTEGER REFERENCES groups(id),
     UNIQUE (user_id, group_id)
 );

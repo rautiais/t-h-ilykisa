@@ -30,6 +30,25 @@
                 <p>No members found.</p>
             {% endfor %}
         </div>
+        <h3>Add an event that happened</h3>
+        <div class="column"> 
+            <form action="/log_event/{{group_id}}" method="POST">
+                <label for="category">Choose an event category:</label>
+                <select name="category" id="category" onchange="updateEventsDropdown()" required class="form-control" style="width: 35%;">
+                    <option value="" disabled selected>Select a category</option>
+                    {% for category in all_event_cats | sort(attribute='category_name') %}
+                        <option value="{{ category.id }}">{{ category.event_cat_name | capitalize }}</option>
+                    {% endfor %}
+                </select>
+                <br>
+                <label for="event">Choose an event:</label>
+                <select name="event" id="event" required class="form-control" style="width: 35%;">
+                    <option value="" disabled selected>Select an event</option>
+                </select>
+                <input type="submit" value="Log event" class="form-button">
+                <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+            </form>
+        </div>
         <br>
         <br>
     </div>
@@ -37,5 +56,35 @@
         <a href="javascript:history. back()"><b>Back to groups</b></a>
     </footer>
     </div>
+
+    <script>
+    function capitalizeWords(str) {
+        return str.replace(/\b\w/g, l => l.toUpperCase());
+}
+
+    function updateEventsDropdown() {
+        var categoryId = document.getElementById('category').value;
+        var eventDropdown = document.getElementById('event');
+        eventDropdown.innerHTML = '<option value="" disabled selected>Loading events...</option>'; 
+
+        fetch('/events_for_category/' + categoryId)
+            .then(response => response.json())
+            .then(data => {
+                eventDropdown.innerHTML = '<option value="" disabled selected>Select an event</option>'; 
+                if (data.length) {
+                    data.forEach(event => {
+                        eventDropdown.innerHTML += `<option value="${event.id}">${capitalizeWords(event.event_name)}</option>`;
+                    });
+                } else {
+                    eventDropdown.innerHTML += '<option value="" disabled selected>No events found</option>'; 
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching events:', error);
+                eventDropdown.innerHTML = '<option value="" disabled selected>Error loading events</option>';
+            });
+        }
+    </script>
+        
 </body>
 </html>

@@ -61,3 +61,13 @@ def list_all_groups():
                ORDER BY group_name""")
     result = db.session.execute(sql)
     return result.fetchall()
+
+def log_group_event(group_id, event_id):
+    try:
+        event_points = db.session.query(Events).filter_by(id=event_id).first().points
+        group = db.session.query(Groups).filter_by(id=group_id).first()
+        group.points += event_points
+        db.session.commit()
+        return True
+    except:
+        return False

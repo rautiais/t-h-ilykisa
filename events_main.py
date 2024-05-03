@@ -59,3 +59,11 @@ def new_event(event_name, event_points, cat_id):
         return True
     except:
         return False
+    
+def get_events_by_cateogry(cat_id):
+    sql = text("""SELECT id, event_name
+               FROM events WHERE event_cat_id=:cat_id
+               ORDER BY event_name""")
+    result = db.session.execute(sql, {"cat_id": cat_id})
+    events =  [{"id": event.id, "event_name":event.event_name} for event in result]
+    return events
