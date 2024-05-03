@@ -13,13 +13,14 @@ CREATE TABLE IF NOT EXISTS users (
 
 CREATE TABLE IF NOT EXISTS event_cat (
     id SERIAL PRIMARY KEY,
-    event_cat_name TEXT UNIQUE CHECK(event_cat_name IS NOT NULL AND length(event_cat_name) > 2 AND length(event_cat_name) < 20)
+    event_cat_name TEXT UNIQUE CHECK(event_cat_name IS NOT NULL AND length(event_cat_name) > 2 AND length(event_cat_name) < 25)
 );
 
 CREATE TABLE IF NOT EXISTS events (
     id SERIAL PRIMARY KEY,
-    event_name TEXT UNIQUE CHECK(event_name IS NOT NULL AND length(event_name) > 2 AND length(event_name) < 20),
-    event_cat_id INTEGER REFERENCES event_cat(id)
+    event_name TEXT UNIQUE CHECK(event_name IS NOT NULL AND length(event_name) > 2 AND length(event_name) < 25),
+    event_cat_id INTEGER REFERENCES event_cat(id),
+    points INTEGER CHECK (points > 0)
 );
 
 CREATE TABLE IF NOT EXISTS groups (

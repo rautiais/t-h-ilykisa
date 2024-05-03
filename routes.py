@@ -113,7 +113,7 @@ def event_cat():
 
 @app.route("/new_event_cat", methods=["POST"])
 def new_event_cat():
-    event_cat_name = request.form["new_event_cat"]
+    event_cat_name = request.form["new_event_cat"].strip()
 
     if events_main.check_event_cat(event_cat_name):
         flash("Event category name is not unique")
@@ -137,16 +137,25 @@ def events(cat_id):
 
 @app.route("/events/<int:cat_id>/new", methods=["POST"])
 def new_event(cat_id):
-    event_name = request.form["new_event"]
+    event_name = request.form["new_event"].strip()
+
+    if not event_name:
+        flash("Event name is required")
+        return render_template("error.html", message="Event name is required")
 
     if events_main.check_event(event_name):
         flash("Event name is not unique")
         return render_template("error.html", message="Event name is not unique")
     
+    try:
+        event_points = int(request.form["event_points"].strip())
+    except ValueError:
+        flash("Points are required and must be a valid number")
+        return render_template("error.html", message="Points are required and must be a valid number")
+    
+    if events_main.new_event(event_name, event_points, cat_id):
+        flash("Creating an event was successful")
+        return redirect(f"/events/{cat_id}")
     else:
-        if events_main.new_event(event_name, cat_id):
-            flash("Creating an event was successful")
-            return redirect(f"/events/{cat_id}")
-        else:
-            flash("Error in creating an event")
-            return render_template("error.html", message="Error in creating an event")
+        flash("Error in creating an event")
+        return render_template("error.html", message="Error in creating an event")

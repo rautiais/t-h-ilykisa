@@ -177,3 +177,13 @@ select {
   background-color: rgb(201, 231, 235);
   color: hotpink; 
 }
+
+ul.events-list {
+  list-style-type: None;
+  padding: 0px;
+}
+
+ul.events-list li {
+  padding: 5px 5px;
+  font-size: 16px;
+}

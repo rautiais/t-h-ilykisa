@@ -35,7 +35,7 @@ def all_event_cats():
     return result.fetchall()
 
 def list_events_in_cat(cat_id):
-    sql = text("""SELECT e.id, e.event_name, c.event_cat_name
+    sql = text("""SELECT e.id, e.event_name, e.points, c.event_cat_name
                FROM events e JOIN event_cat c ON e.event_cat_id = c.id
                WHERE c.id=:cat_id""")
     result = db.session.execute(sql, {"cat_id": cat_id})
@@ -49,12 +49,12 @@ def check_event(event_name):
     event_id = result.fetchone()
     return event_id[0] if event_id else False
 
-def new_event(event_name, cat_id):
+def new_event(event_name, event_points, cat_id):
     event_name_lower = event_name.lower()
     try:
-        sql = text("""INSERT INTO events (event_name, event_cat_id) 
-                   VALUES (:event_name, :cat_id)""")
-        db.session.execute(sql, {"event_name":event_name_lower, "cat_id":cat_id})
+        sql = text("""INSERT INTO events (event_name, points, event_cat_id) 
+                   VALUES (:event_name, :points, :cat_id)""")
+        db.session.execute(sql, {"event_name":event_name_lower, "points":event_points, "cat_id":cat_id})
         db.session.commit()
         return True
     except:

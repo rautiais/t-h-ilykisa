@@ -25,11 +25,13 @@
         <div>
             {% if events_in_cat %}
                 <h3>Category events:</h3>
-                {% for event in events_in_cat | sort(attribute='event_name') %}
-                    <p>{{ event.event_name | capitalize}}</p>
-                {% else %}
-                    <p>No events found.</p>
-                {% endfor %}
+                <ul class="events-list">
+                    {% for event in events_in_cat | sort(attribute='event_name') %}
+                        <li>{{ event.event_name | capitalize }} - {{ event.points }} points</li>
+                    {% else %}
+                        <p>No events found.</p>
+                    {% endfor %}
+                </ul>
             {% else %}
                 <p>No events found.</p>
             {% endif %}
@@ -38,7 +40,11 @@
             <div class="column">
                 <form action="/events/{{cat_id}}/new" method="POST">
                     <label for="new_event">Create a new event:</label>
-                    <input type="text" id="new_event" name="new_event" minlength="3" maxlength="25" class="form-control" style="width: 35%;">
+                    <input type="text" id="new_event" name="new_event" minlength="3" maxlength="25" required class="form-control" style="width: 35%;">
+                    
+                    <label for="event_points">Points:</label>
+                    <input type="number" id="event_points" name="event_points" min="0" max="100" required class="form-control" style="width: 15%;">
+
                     <input type="submit" value="Create event" class="form-button">
                     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
                 </form>
