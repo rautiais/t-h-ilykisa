@@ -21,7 +21,7 @@
                     <li><a href="/logout" class="{{ 'active' if request.path == '/logout' else '' }}">Log out</a></li>
                 </ul>
             </nav>
-        <h2>{{ group_users[0].group_name if group_users else 'Group Not Found' }}</h2>
+        <h2>{{ group_users[0].group_name | capitalize if group_users else 'Group Not Found' }}</h2>
         <h3>Group members:</h3>
         <div>
             {% for user in group_users %}

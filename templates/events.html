@@ -21,18 +21,28 @@
                     <li><a href="/logout" class="{{ 'active' if request.path == '/logout' else '' }}">Log out</a></li>
                 </ul>
             </nav>
-        <h2>{{ "Event Category Not Found" if not category_name else "Events in "+ category_name }}</h2>
+        <h2>{{ category_name | capitalize }}</h2>
         <div>
             {% if events_in_cat %}
                 <h3>Category events:</h3>
-                {% for event in events_in_cat %}
+                {% for event in events_in_cat | sort(attribute='event_name') %}
                     <p>{{ event.event_name | capitalize}}</p>
                 {% else %}
                     <p>No events found.</p>
                 {% endfor %}
             {% else %}
-                <p>No events found or category does not exist.</p>
+                <p>No events found.</p>
             {% endif %}
+        </div>
+        <div class="container">
+            <div class="column">
+                <form action="/events/{{cat_id}}/new" method="POST">
+                    <label for="new_event">Create a new event:</label>
+                    <input type="text" id="new_event" name="new_event" minlength="3" maxlength="25" class="form-control" style="width: 35%;">
+                    <input type="submit" value="Create event" class="form-button">
+                    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+                </form>
+            </div>
         </div>
         <br>
         <br>
@@ -44,12 +54,5 @@
 </body>
 </html>
 
-<!-- 
-<h2>Events</h2>
 
-<form action="/event" method="get">
-Event name: <input type="text" name="event">
-<p>
-<input type="submit" value="Make">
-</form> -->
 

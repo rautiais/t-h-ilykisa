@@ -124,12 +124,29 @@ def new_event_cat():
             flash("Creating a category was successful")
             return redirect("/event_cat")
         else:
-            flash("Error")
-            return render_template("error.html", message="Error")
+            flash("Error in creating an event category")
+            return render_template("error.html", message="Error in creating an event category")
 
-@app.route("/events/<int:cat_id>")
+@app.route("/events/<int:cat_id>", methods=["GET"])
 def events(cat_id):
     events_in_cat = events_main.list_events_in_cat(cat_id)
-    if not events_in_cat:
-        return render_template("events.html")
-    return render_template("events.html", events_in_cat=events_in_cat, category_name=events_in_cat[0].event_cat_name)
+    category_name = events_main.get_category_name(cat_id)
+    if not category_name:
+        category_name = "Event Category Not Found"
+    return render_template("events.html", events_in_cat=events_in_cat, category_name=category_name, cat_id=cat_id)
+
+@app.route("/events/<int:cat_id>/new", methods=["POST"])
+def new_event(cat_id):
+    event_name = request.form["new_event"]
+
+    if events_main.check_event(event_name):
+        flash("Event name is not unique")
+        return render_template("error.html", message="Event name is not unique")
+    
+    else:
+        if events_main.new_event(event_name, cat_id):
+            flash("Creating an event was successful")
+            return redirect(f"/events/{cat_id}")
+        else:
+            flash("Error in creating an event")
+            return render_template("error.html", message="Error in creating an event")
