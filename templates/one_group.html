@@ -49,6 +49,27 @@
                 <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
             </form>
         </div>
+        <h3>Scoreboard:</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Points</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for score in scores %}
+                <tr>
+                    <td>{{ score.username | capitalize }}</td>
+                    <td>{{ score.total_points }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td> colspan="2">No scores to display.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
         <br>
         <br>
     </div>

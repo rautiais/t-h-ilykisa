@@ -62,12 +62,29 @@ def list_all_groups():
     result = db.session.execute(sql)
     return result.fetchall()
 
-def log_group_event(group_id, event_id):
-    try:
-        event_points = db.session.query(Events).filter_by(id=event_id).first().points
-        group = db.session.query(Groups).filter_by(id=group_id).first()
-        group.points += event_points
-        db.session.commit()
-        return True
-    except:
+def log_group_event(user_id, group_id, event_id):
+    sql = text("""SELECT points FROM events
+               WHERE id=:event_id""")
+    result = db.session.execute(sql, {"event_id":event_id})
+    event_points_row = result.fetchone()
+
+    if event_points_row is None:
         return False
+
+    event_points = event_points_row[0]
+
+    sql = text("""INSERT INTO user_events (user_id, group_id, event_id, points)
+               VALUES (:user_id, :group_id, :event_id, :points)""")
+    db.session.execute(sql, {"user_id":user_id, "group_id":group_id, "event_id":event_id, "points":event_points})
+    db.session.commit()
+    return True
+
+def calculate_scores(group_id):
+    sql = text("""SELECT u.username, SUM(ue.points) AS total_points
+               FROM user_events ue JOIN users u
+               ON u.id = ue.user_id
+               WHERE ue.group_id =:group_id
+               GROUP BY u.username
+               ORDER BY total_points DESC""")
+    result = db.session.execute(sql, {"group_id":group_id})
+    return result.fetchall()
