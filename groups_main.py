@@ -50,7 +50,7 @@ def list_users(group_id):
 
 def check_access(group_id):
     sql = text("""SELECT u.id FROM user_info u
-                WHERE u.group_id=:group_id AND u.user_id:=user_id""")
+                WHERE u.group_id=:group_id AND u.user_id=:user_id""")
     result = db.session.execute(sql, {"group_id":group_id, "user_id":session["user_id"]})
     if result.fetchone():
         return True

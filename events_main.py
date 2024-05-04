@@ -38,7 +38,7 @@ def list_events_in_cat(cat_id):
     sql = text("""SELECT e.id, e.event_name, e.points, c.event_cat_name
                FROM events e JOIN event_cat c ON e.event_cat_id = c.id
                WHERE c.id=:cat_id""")
-    result = db.session.execute(sql, {"cat_id": cat_id})
+    result = db.session.execute(sql, {"cat_id":cat_id})
     return result.fetchall()
 
 def check_event(event_name):

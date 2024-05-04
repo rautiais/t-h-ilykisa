@@ -1,5 +1,5 @@
 from app import app
-from flask import redirect, render_template, request, flash, jsonify, session
+from flask import redirect, render_template, request, flash, abort, jsonify, session
 import users
 import groups_main
 import events_main
@@ -101,6 +101,9 @@ def groups():
 
 @app.route("/one_group/<int:group_id>")
 def one_group(group_id):
+    access = groups_main.check_access(group_id)
+    if not access:
+        abort(403)
     group_users = groups_main.list_users(group_id)
     all_event_cats = events_main.all_event_cats()
     scores = groups_main.calculate_scores(group_id)
@@ -115,6 +118,7 @@ def event_cat():
 
 @app.route("/new_event_cat", methods=["POST"])
 def new_event_cat():
+    users.check_token(request.form["csrf_token"])
     event_cat_name = request.form["new_event_cat"].strip()
 
     if events_main.check_event_cat(event_cat_name):
@@ -139,6 +143,7 @@ def events(cat_id):
 
 @app.route("/events/<int:cat_id>/new", methods=["POST"])
 def new_event(cat_id):
+    users.check_token(request.form["csrf_token"])
     event_name = request.form["new_event"].strip()
 
     if not event_name:
@@ -169,6 +174,7 @@ def events_for_cateogry(cat_id):
 
 @app.route("/log_event/<int:group_id>", methods=["POST"])
 def log_event(group_id):
+    users.check_token(request.form["csrf_token"])
     cat_id = request.form["category"]
     event_id = request.form["event"]
     user_id = session.get("user_id")
