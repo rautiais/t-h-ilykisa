@@ -230,6 +230,9 @@ ul.events-list li {
 table {
   width: 60%;
   border-collapse: collapse;
+  border-style: solid;
+  border-color: rgb(9, 2, 84);
+  border-width: 1px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin-bottom: 30px;
 }

@@ -80,7 +80,9 @@
 
     <script>
     function capitalizeWords(str) {
-        return str.replace(/\b\w/g, l => l.toUpperCase());
+        return str
+        .toLowerCase()
+        .replace(/^\w/, c => c.toUpperCase());
 }
 
     function updateEventsDropdown() {
