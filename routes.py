@@ -1,4 +1,5 @@
 from flask import redirect, render_template, request, flash, abort, jsonify, session
+import re
 from app import app
 import users
 from users import is_logged_in
@@ -154,6 +155,10 @@ def new_event_cat():
         flash("Event category name must be between 3 and 35 characters long")
         return render_template("error.html",
                                message="Event name must be between 3 and 35 characters long")
+    if not re.match("^[A-Za-z ]+$", event_cat_name):
+        flash("Invalid event category name. Only letters are allowed.")
+        return render_template("error.html",
+                               message="Invalid event category name. Only letters are allowed.")
     if events_main.check_event_cat(event_cat_name):
         flash("Event category name is not unique")
         return render_template("error.html", message="Category name is not unique")
@@ -187,6 +192,10 @@ def new_event(cat_id):
         flash("Event name must be between 3 and 35 characters long")
         return render_template("error.html",
                                message="Event name must be between 3 and 35 characters long")
+    if not re.match("^[A-Za-z ]+$", event_name):
+        flash("Invalid event name. Only letters are allowed.")
+        return render_template("error.html",
+                               message="Invalid event name. Only letters are allowed.")
     if not event_name:
         flash("Event name is required")
         return render_template("error.html",
