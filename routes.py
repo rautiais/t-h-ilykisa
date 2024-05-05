@@ -1,5 +1,5 @@
-from app import app
 from flask import redirect, render_template, request, flash, abort, jsonify, session
+from app import app
 import users
 from users import is_logged_in
 import groups_main
@@ -33,32 +33,29 @@ def logout():
 def register():
     if request.method == "GET":
         return render_template("register.html")
-    
     if request.method == "POST":
         username = request.form["username"]
-        password1 = request.form["password1"]        
+        password1 = request.form["password1"]
         password2 = request.form["password2"]
-
         if not users.check_username(username):
-            return render_template("error.html", message="The username is already taken")
-
+            return render_template("error.html",
+                                   message="The username is already taken")
         if not username.islower():
-            return render_template("error.html", message="The username has to be in lower case")
-
+            return render_template("error.html",
+                                   message="The username has to be in lower case")
         if len(username) <= 2 or len(username) >= 20:
-            return render_template("error.html", message="The username must be between 3 and 20 characters")
-        
+            return render_template("error.html",
+                                   message="The username must be between 3 and 20 characters")
         if len(password1) <= 7 or len(password1) >= 50:
-            return render_template("error.html", message="The password must be between 8 and 50 characters")     
-        
+            return render_template("error.html",
+                                   message="The password must be between 8 and 50 characters")     
         if password1 != password2:
-            return render_template("error.html", message="Passwords do not match")
-        
+            return render_template("error.html",
+                                   message="Passwords do not match")
         if users.register(username, password1):
             return redirect("/")
-        
         else:
-            return render_template("error.html", message="Registration failed")        
+            return render_template("error.html", message="Registration failed")
 
 @app.route("/info")
 def info():
@@ -68,34 +65,34 @@ def info():
 def new_group():
     users.check_token(request.form["csrf_token"])
     group_name = request.form["new_group"]
-
     if groups_main.check_group(group_name):
         flash("Group name is not unique")
-        return render_template("error.html", message="Group name is not unique")
-
+        return render_template("error.html",
+                               message="Group name is not unique")
     else:
         if groups_main.new_group(group_name):
             flash("Creating a group was successful")
             return redirect("/groups")
         else:
             flash("Error")
-            return render_template("error.html", message="Error, creating the group was not successful")
+            return render_template("error.html",
+                                   message="Error, creating the group was not successful")
 
 @app.route("/join_group", methods=["POST"])
 def join_group():
     users.check_token(request.form["csrf_token"])
     group_id = request.form.get("join_group")
-
     if not group_id:
         flash("Please provide a group name to join.")
-        return render_template("error.html", message="Error, please select a group to join.")        
-
+        return render_template("error.html",
+                               message="Error, please select a group to join.")        
     if groups_main.join_group(group_id):
         flash("You joined the group")
         return redirect("/groups")
     else:
         flash("You are already in the group or an error occurred")
-        return render_template("error.html", message="You are already in the group or an error occurred.")
+        return render_template("error.html",
+                               message="You are already in the group or an error occurred.")
         
 @app.route("/groups")
 def groups():
@@ -104,7 +101,7 @@ def groups():
         return redirect("/login")
     my_groups = groups_main.users_all_groups()
     all_groups = groups_main.list_all_groups()
-    return render_template("groups.html", my_groups=my_groups, all_groups=all_groups)  
+    return render_template("groups.html",my_groups=my_groups, all_groups=all_groups)  
 
 @app.route("/one_group/<int:group_id>")
 def one_group(group_id):
@@ -119,21 +116,22 @@ def one_group(group_id):
     scores = groups_main.calculate_scores(group_id)
     if not group_users:
         return render_template("one_group.html", group_users=None)
-    return render_template("one_group.html", group_users=group_users, all_event_cats=all_event_cats, group_id=group_id, scores=scores)
+    return render_template("one_group.html",
+                           group_users=group_users,
+                           all_event_cats=all_event_cats,
+                           group_id=group_id,
+                           scores=scores)
 
 @app.route("/leave_group/<int:group_id>", methods=["POST"])
 def leave_group(group_id):
     if "user_id" not in session:
         flash("You must be logged in to leave a group")
         return redirect("/login")
-    
     user_id = session.get("user_id")
-    
     if groups_main.leave_group(user_id, group_id):
         flash("You have successfully left the group")
     else:
         flash("Failed to leave the group")
-
     return redirect("/groups")
 
 @app.route("/event_cat", methods=["GET"])
@@ -141,7 +139,6 @@ def event_cat():
     if not is_logged_in():
         flash("You must be logged in to view this page")
         return redirect("/login")
-    
     all_event_cats = events_main.all_event_cats()
     return render_template("event_cat.html", all_event_cats=all_event_cats)
 
@@ -149,11 +146,9 @@ def event_cat():
 def new_event_cat():
     users.check_token(request.form["csrf_token"])
     event_cat_name = request.form["new_event_cat"].strip()
-
     if events_main.check_event_cat(event_cat_name):
         flash("Event category name is not unique")
         return render_template("error.html", message="Category name is not unique")
-    
     else:
         if events_main.new_event_cat(event_cat_name):
             flash("Creating a category was successful")
@@ -167,38 +162,40 @@ def events(cat_id):
     if not is_logged_in():
         flash("You must be logged in to view this page")
         return redirect("/login")
-    
     events_in_cat = events_main.list_events_in_cat(cat_id)
     category_name = events_main.get_category_name(cat_id)
     if not category_name:
         category_name = "Event Category Not Found"
-    return render_template("events.html", events_in_cat=events_in_cat, category_name=category_name, cat_id=cat_id)
+    return render_template("events.html",
+                           events_in_cat=events_in_cat,
+                           category_name=category_name,
+                           cat_id=cat_id)
 
 @app.route("/events/<int:cat_id>/new", methods=["POST"])
 def new_event(cat_id):
     users.check_token(request.form["csrf_token"])
     event_name = request.form["new_event"].strip()
-
     if not event_name:
         flash("Event name is required")
-        return render_template("error.html", message="Event name is required")
-
+        return render_template("error.html",
+                               message="Event name is required")
     if events_main.check_event(event_name):
         flash("Event name is not unique")
-        return render_template("error.html", message="Event name is not unique")
-    
+        return render_template("error.html",
+                               message="Event name is not unique")
     try:
         event_points = int(request.form["event_points"].strip())
     except ValueError:
         flash("Points are required and must be a valid number")
-        return render_template("error.html", message="Points are required and must be a valid number")
-    
+        return render_template("error.html",
+                               message="Points are required and must be a valid number")
     if events_main.new_event(event_name, event_points, cat_id):
         flash("Creating an event was successful")
         return redirect(f"/events/{cat_id}")
     else:
         flash("Error in creating an event")
-        return render_template("error.html", message="Error in creating an event")
+        return render_template("error.html",
+                               message="Error in creating an event")
 
 @app.route("/events_for_category/<int:cat_id>")
 def events_for_cateogry(cat_id):
@@ -211,14 +208,14 @@ def log_event(group_id):
     cat_id = request.form["category"]
     event_id = request.form["event"]
     user_id = session.get("user_id")
-
     if not user_id or not event_id or not cat_id:
         flash("You must select both the category and the event")
-        return render_template("error.html", message="You must select both the category and the event")
-    
+        return render_template("error.html",
+                               message="You must select both the category and the event")
     if groups_main.log_group_event(user_id, group_id, event_id):
         flash("Event logged successfully")
         return redirect(f"/one_group/{group_id}")
     else:
         flash("Failed to log the event")
         return redirect(f"/one_group/{group_id}")
+    

@@ -1,6 +1,6 @@
-from db import db
-from sqlalchemy.sql import text
 from flask import session
+from sqlalchemy.sql import text
+from db import db
 
 def check_event_cat(event_cat_name):
     event_cat_name_lower = event_cat_name.lower()
@@ -13,14 +13,14 @@ def check_event_cat(event_cat_name):
 def new_event_cat(event_cat_name):
     event_cat_name_lower = event_cat_name.lower()
     try:
-        sql = text("""INSERT INTO event_cat (event_cat_name) 
+        sql = text("""INSERT INTO event_cat (event_cat_name)
                    VALUES (:event_cat_name)""")
         db.session.execute(sql, {"event_cat_name":event_cat_name_lower})
         db.session.commit()
         return True
     except:
         return False
-    
+
 def get_category_name(cat_id):
     sql = text("""SELECT event_cat_name
                FROM event_cat WHERE id=:cat_id""")
@@ -29,7 +29,7 @@ def get_category_name(cat_id):
     return name[0] if name else None
 
 def all_event_cats():
-    sql = text("""SELECT id, event_cat_name 
+    sql = text("""SELECT id, event_cat_name
                FROM event_cat ORDER BY event_cat_name""")
     result = db.session.execute(sql)
     return result.fetchall()
@@ -52,14 +52,17 @@ def check_event(event_name):
 def new_event(event_name, event_points, cat_id):
     event_name_lower = event_name.lower()
     try:
-        sql = text("""INSERT INTO events (event_name, points, event_cat_id) 
+        sql = text("""INSERT INTO events (event_name, points, event_cat_id)
                    VALUES (:event_name, :points, :cat_id)""")
-        db.session.execute(sql, {"event_name":event_name_lower, "points":event_points, "cat_id":cat_id})
+        db.session.execute(sql, {
+            "event_name":event_name_lower,
+            "points":event_points,
+            "cat_id":cat_id})
         db.session.commit()
         return True
     except:
         return False
-    
+
 def get_events_by_cateogry(cat_id):
     sql = text("""SELECT id, event_name
                FROM events WHERE event_cat_id=:cat_id
