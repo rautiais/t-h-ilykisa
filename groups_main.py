@@ -31,6 +31,16 @@ def join_group(group_id):
     except:
         return False
     
+def leave_group(user_id, group_id):
+    try:
+        sql = text("""DELETE FROM user_info
+                   WHERE user_id=:user_id AND group_id=:group_id""")
+        db.session.execute(sql, {"user_id":user_id, "group_id":group_id})
+        db.session.commit()
+        return True
+    except:
+        return False
+
 def users_all_groups():
     sql = text("""SELECT u.group_id, g.group_name 
                FROM user_info u INNER JOIN groups g

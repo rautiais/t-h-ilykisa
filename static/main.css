@@ -187,3 +187,41 @@ ul.events-list li {
   padding: 5px 5px;
   font-size: 16px;
 }
+
+.group-item {
+  font-size: 17px;
+  display: flex;
+  align-items: flex-end;
+  padding: 8px;
+  width: 100%;
+  justify-content: flex-start;
+}
+
+.group-link {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-right: 10px; 
+  flex-grow: 1;
+}
+
+.leave-group-form {
+  flex-shrink: 0;
+  margin-left: 3%;
+}
+
+.leave-group-button {
+  padding: 5px 8px;
+  background-color: white; 
+  color:  rgb(9, 2, 84);
+  border-style:groove;
+  border-color: rgb(252, 184, 218);
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+}
+
+.leave-group-button:hover {
+  background-color: rgb(252, 164, 198);
+}

@@ -49,7 +49,13 @@
         <h3>My groups</h3>
         <div>
             {% for one_group in my_groups | sort(attribute='group_name') %}
-            <a href="/one_group/{{ one_group.group_id}}">{{one_group.group_name | capitalize}}</a>
+            <div class="group-item">
+                <a href="/one_group/{{ one_group.group_id}}">{{one_group.group_name | capitalize}}</a>
+                <form action="{{ url_for('leave_group', group_id=one_group.group_id) }}" method="post" class="leave-group-form">
+                    <button type="submit" class="leave-group-button" >Leave group</button>
+                    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+                </form>
+            </div>
             {% endfor %}
         </div>
         <br>

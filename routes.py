@@ -121,11 +121,27 @@ def one_group(group_id):
         return render_template("one_group.html", group_users=None)
     return render_template("one_group.html", group_users=group_users, all_event_cats=all_event_cats, group_id=group_id, scores=scores)
 
+@app.route("/leave_group/<int:group_id>", methods=["POST"])
+def leave_group(group_id):
+    if "user_id" not in session:
+        flash("You must be logged in to leave a group")
+        return redirect("/login")
+    
+    user_id = session.get("user_id")
+    
+    if groups_main.leave_group(user_id, group_id):
+        flash("You have successfully left the group")
+    else:
+        flash("Failed to leave the group")
+
+    return redirect("/groups")
+
 @app.route("/event_cat", methods=["GET"])
 def event_cat():
     if not is_logged_in():
         flash("You must be logged in to view this page")
         return redirect("/login")
+    
     all_event_cats = events_main.all_event_cats()
     return render_template("event_cat.html", all_event_cats=all_event_cats)
 
@@ -151,6 +167,7 @@ def events(cat_id):
     if not is_logged_in():
         flash("You must be logged in to view this page")
         return redirect("/login")
+    
     events_in_cat = events_main.list_events_in_cat(cat_id)
     category_name = events_main.get_category_name(cat_id)
     if not category_name:
