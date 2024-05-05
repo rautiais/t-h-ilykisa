@@ -64,7 +64,11 @@ def info():
 @app.route("/new_group", methods=["POST"])
 def new_group():
     users.check_token(request.form["csrf_token"])
-    group_name = request.form["new_group"]
+    group_name = request.form["new_group"].strip()
+    if len(group_name) < 3 or len(group_name) > 35:
+        flash("Group name must be between 3 and 35 characters long")
+        return render_template("error.html",
+                               message="Group name must be between 3 and 35 characters long")
     if groups_main.check_group(group_name):
         flash("Group name is not unique")
         return render_template("error.html",
@@ -146,6 +150,10 @@ def event_cat():
 def new_event_cat():
     users.check_token(request.form["csrf_token"])
     event_cat_name = request.form["new_event_cat"].strip()
+    if len(event_cat_name) < 3 or len(event_cat_name) > 35:
+        flash("Event category name must be between 3 and 35 characters long")
+        return render_template("error.html",
+                               message="Event name must be between 3 and 35 characters long")
     if events_main.check_event_cat(event_cat_name):
         flash("Event category name is not unique")
         return render_template("error.html", message="Category name is not unique")
@@ -175,6 +183,10 @@ def events(cat_id):
 def new_event(cat_id):
     users.check_token(request.form["csrf_token"])
     event_name = request.form["new_event"].strip()
+    if len(event_name) < 3 or len(event_name) > 35:
+        flash("Event name must be between 3 and 35 characters long")
+        return render_template("error.html",
+                               message="Event name must be between 3 and 35 characters long")
     if not event_name:
         flash("Event name is required")
         return render_template("error.html",
