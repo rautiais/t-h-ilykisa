@@ -9,21 +9,19 @@ def login(username, password):
                WHERE username=:username""")
     result = db.session.execute(sql, {"username":username})
     user = result.fetchone()
-    if not user:
-        return False
+    
+    if user and check_password_hash(user.password, password):
+        session["user_id"] = user.id
+        session["username"] = username
+        session["csrf_token"] = secrets.token_hex(16)
+        return True
     else:
-        if check_password_hash(user.password, password):
-            session["user_id"] = user.id
-            session["username"] = username
-            session["csrf_token"] = secrets.token_hex(16)
-            return True
-        else:
-            return False
+        return False
 
 def logout():
-    del session["user_id"]
-    del session["username"]
-    del session["csrf_token"]
+    session.pop("user_id", None)
+    session.pop("username", None)
+    session.pop("csrf_token", None)
 
 def register(username, password):
     hash_value = generate_password_hash(password)
@@ -52,3 +50,6 @@ def check_username(username):
         return False
     else:
         return True
+    
+def is_logged_in():
+    return "user_id" in session

@@ -1,6 +1,7 @@
 from app import app
 from flask import redirect, render_template, request, flash, abort, jsonify, session
 import users
+from users import is_logged_in
 import groups_main
 import events_main
 
@@ -22,6 +23,9 @@ def login():
 
 @app.route("/logout")
 def logout():
+    if not is_logged_in():
+        flash("You must be logged in to view this page")
+        return redirect("/login")
     users.logout()
     return redirect("/")
 
@@ -95,12 +99,18 @@ def join_group():
         
 @app.route("/groups")
 def groups():
+    if not is_logged_in():
+        flash("You must be logged in to view this page")
+        return redirect("/login")
     my_groups = groups_main.users_all_groups()
     all_groups = groups_main.list_all_groups()
     return render_template("groups.html", my_groups=my_groups, all_groups=all_groups)  
 
 @app.route("/one_group/<int:group_id>")
 def one_group(group_id):
+    if not is_logged_in():
+        flash("You must be logged in to view this page")
+        return redirect("/login")
     access = groups_main.check_access(group_id)
     if not access:
         abort(403)
@@ -113,6 +123,9 @@ def one_group(group_id):
 
 @app.route("/event_cat", methods=["GET"])
 def event_cat():
+    if not is_logged_in():
+        flash("You must be logged in to view this page")
+        return redirect("/login")
     all_event_cats = events_main.all_event_cats()
     return render_template("event_cat.html", all_event_cats=all_event_cats)
 
@@ -135,6 +148,9 @@ def new_event_cat():
 
 @app.route("/events/<int:cat_id>", methods=["GET"])
 def events(cat_id):
+    if not is_logged_in():
+        flash("You must be logged in to view this page")
+        return redirect("/login")
     events_in_cat = events_main.list_events_in_cat(cat_id)
     category_name = events_main.get_category_name(cat_id)
     if not category_name:
